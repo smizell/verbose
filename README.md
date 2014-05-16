@@ -24,7 +24,7 @@ Verbose is built from all of the main [Hyperextend](https://github.com/smizell/h
     "verbose": { "$ref": "#/definitions/verbose" }
   },
   "definitions": {
-    "verbose: {
+    "verbose": {
       "allOf": [
         { "$ref": "http://hyperschema.org/extensions/hyperextend/link#" },
         { "$ref": "#/definitions/resource" }
@@ -313,7 +313,7 @@ Verbose stands on the shoulders of giants. It comes from including everything it
 * Siren for its domain-drive model (and the `id` and `class` properties, which I use here)
 * UBER for doing everything with minimalism (where Verbose tries to do everything and more without minimalism)
 
-These are just small things I got from each of these formats, which are all awesome.
+These are just small things I got from each of these formats, which are all awesome. I could go on a for a long time about them. A big thanks to their creators.
 
 
 
