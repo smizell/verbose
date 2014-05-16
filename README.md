@@ -348,8 +348,6 @@ Verbose can also provide a profile with all of its wordiness. In this example, I
 }
 ```
 
-#### Resource Representation
-
 ## Thanks
 
 Verbose stands on the shoulders of giants. It comes from including everything it can from other media types. A big thanks to all those who work tirelessly on building great hypermedia stuff. Here are just a few pieces to which I give a tip of my hat.
