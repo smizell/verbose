@@ -237,6 +237,7 @@ As you can see, this link relation contains a lot of the same data as the CRUD e
         "description": "The total number of customers in this collection.",
         "name": "total_customers",
         "type": "number"
+      }
     ],
     
     "templates": [
