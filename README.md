@@ -305,6 +305,51 @@ Consider this a representation that is described by the link relation above. It 
 }
 ```
 
+### Profile
+
+Verbose can also provide a profile with all of its wordiness. In this example, I'll show a document that resembles an [ALPS document](http://alps.io/spec/index.html#rfc.section.1.3) (which is used for this example).
+
+#### Profile
+
+```json
+{
+  "verbose": {
+    "version": "0.1",
+    "title": "List of Contacts",
+    "description": "A list of contacts",
+    
+    "queries": [
+      {
+        "id": "collection",
+        "description": "Simple link/form for getting a list of contacts",
+        "queryParams": [
+          {
+            "title": "Name Search",
+            "description": "Input for search form",
+            "name": "nameSearch"
+          }
+        ],
+        "returns": "#contact"
+      }
+    ],
+    
+    "resources": [
+      {
+        "id": "contact",
+        "description": "Individual contact",
+        "semantics": [
+          { "name": "fullName" },
+          { "name": "email" },
+          { "name": "phone" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+#### Resource Representation
+
 ## Thanks
 
 Verbose stands on the shoulders of giants. It comes from including everything it can from other media types. A big thanks to all those who work tirelessly on building great hypermedia stuff. Here are just a few pieces to which I give a tip of my hat.
