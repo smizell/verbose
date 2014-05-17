@@ -332,7 +332,7 @@ Verbose can also provide a profile with all of its wordiness.
     "description": "A collection of customers",
 
     "id": "customers",
-    "rels": [ "collection" ]
+    "rels": [ "collection" ],
     
     "queries": [
       {
