@@ -237,7 +237,13 @@ The `href` property is required and at least one item should be included in `rel
           "application/json",
           "application/hal"
         ],
-        "hreft": "/customer/{id}"
+        "hreft": "/customer/{id}",
+        "uriParams": [
+          {
+            "name": "id",
+            "type": "number"
+          }
+        ],
       }
     ]
   }
@@ -261,6 +267,12 @@ The `href` and `method` properties are required.
         "rels": [ "http://example.com/rels/customer"],
         "hreft": "/customer/{id}",
         "method": "PUT",
+        "uriParams": [
+          {
+            "name": "id",
+            "type": "number"
+          }
+        ],
         "bodyParams": [
           {
             "name": "first_name",
@@ -295,6 +307,12 @@ The `href` property is required and at least one item should be included in `rel
         "title": "User Image Search",
         "rels": [ "search" ],
         "hreft": "/users/{id}/images",
+        "uriParams": [
+          {
+            "name": "id",
+            "type": "number"
+          }
+        ],
         "queryParams": [
           {
             "name": "image_name",
