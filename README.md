@@ -577,9 +577,22 @@ This is taken from the example in the [Siren spec](https://github.com/kevinswibe
         "href": "http://api.x.io/orders/42/items",
         "requestTypes": [ "application/x-www-form-urlencoded" ],
         "bodyParams": [
-          { "name": "orderNumber", "type": "number", "format": "hidden", "value": "42" },
-          { "name": "productCode", "type": "string", "format": "text" },
-          { "name": "quantity", "type": "number", "format": "number" }
+          { 
+            "name": "orderNumber",
+            "type": "number",
+            "format": "hidden",
+            "value": "42"
+          },
+          { 
+            "name": "productCode",
+            "type": "string",
+            "format": "text"
+          },
+          {
+            "name": "quantity",
+            "type": "number",
+            "format": "number"
+          }
         ]
       }
     ],
