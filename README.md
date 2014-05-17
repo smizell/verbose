@@ -15,6 +15,7 @@ Verbose is a general-purpose, multi-use hypermedia format that lives up to its n
 3. [Uses](#uses)
 4. [Compared to Other Hypermedia Formats](#compared-to-other-hypermedia-formats)
 5. [Thanks](#thanks)
+6. [References](#references)
 
 ## Schema
 
