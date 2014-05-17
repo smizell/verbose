@@ -831,6 +831,15 @@ Verbose stands on the shoulders of giants. It comes from including everything it
 
 These are just small things I got from each of these formats, which are all awesome. I could go on a for a long time about them. A big thanks to their creators.
 
+## References
+
+Including the media types listed above, there were some other important documents that influenced this format.
+
+* [HTTP Link Descriptions](http://tools.ietf.org/html/draft-wilde-link-desc-01)
+* [HTTP Link Hints](http://tools.ietf.org/html/draft-nottingham-link-hint-00#section-3.10)
+* [Profiles](https://www.mnot.net/blog/2012/04/17/profiles)
+* [URI Templates](http://tools.ietf.org/html/rfc6570)
+
 
 
 
