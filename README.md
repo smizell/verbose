@@ -8,6 +8,14 @@
 
 Verbose is a general-purpose, multi-use hypermedia format that lives up to its name. It can be used for profiles, link relations, resource representations, and api documentation if you so dare. It is built from all of the main [Hyperextend](https://github.com/smizell/hyperextend) components. Because of this, it should cover most or all of the [Hyperschema.org Core Definitions](http://hyperschema.org/core/).
 
+### Contents
+
+1. [Schema](#schema)
+2. [Verbose Documents](#verbose-documents)
+3. [Uses](#uses)
+4. [Compared to Other Hypermedia Formats](#compared-to-other-hypermedia-formats)
+5. [Thanks](#thanks)
+
 ## Schema
 
  It's schema is heavily dependent on Hyperextend's schema.
