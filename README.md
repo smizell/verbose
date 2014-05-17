@@ -143,13 +143,22 @@ The `templates` property is an array of [Hyperdescribe Template](https://github.
 
 The `partials` property is an array of Verbose objects. Partials are verbose objects, but can be used to include objects that are not full representations.
 
-### Includes
+#### Includes
 
 The `includes` property is an array of Verbose objects. It is a way to nest and embed verbose objects.
 
-### Uses
+### Fields
 
-#### CRUD APIs
+Within `queries`, `actions`, `templatedLinks`, `templatedQueries`, and `templatedActions, there are arrays that include [Hyperextend Field](https://github.com/smizell/hyperextend#field) objects. Verbose has some special rules for them.
+
+* `defaultValue` is that value that should be sent if no value is picked
+* `currentValue` is the current value of the field, which can be changed
+* `options` if options is present, they provide the only values for that field
+* `value` is a way to say that this is the value of the field and MUST NOT be changed
+
+## Uses
+
+### CRUD APIs
 
 As you can see, this is very similar to what a [Collection+JSON](http://amundsen.com/media-types/collection/examples/) document would look like.
 
@@ -214,11 +223,11 @@ This would be a resource represenation where it says "Here is a resource and her
 }
 ```
 
-#### Minimal Message plus Link Relations
+### Minimal Message plus Link Relations
 
 This will be very similar to how HAL is designed, where it is very minimal and relies on profiles and link relations to define how to interact with resources. For this approach, I'm going to show a link relation document and a resource representation.
 
-##### Link Relation
+#### Link Relation
 
 As you can see, this link relation contains a lot of the same data as the CRUD example above, but with the resource-specific data stripped out, with more readable information added. It also includes semantics.
 
@@ -258,7 +267,7 @@ As you can see, this link relation contains a lot of the same data as the CRUD e
 }
 ```
 
-##### Resource Representation
+#### Resource Representation
 
 Consider this a representation that is described by the link relation above. It has less information than the CRUD example.
 
@@ -308,11 +317,11 @@ Consider this a representation that is described by the link relation above. It 
 }
 ```
 
-#### Profile Example
+### Profile Example
 
 Verbose can also provide a profile with all of its wordiness.
 
-##### Profile
+#### Profile
 
 ```json
 {
@@ -342,7 +351,7 @@ Verbose can also provide a profile with all of its wordiness.
             "name": "email"
           }
         ],
-        "returns": "#"
+        "returns": "#customers"
       }
     ],
     
@@ -357,6 +366,252 @@ Verbose can also provide a profile with all of its wordiness.
           { "name": "lastName" },
           { "name": "email" },
           { "name": "phone" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+#### Resource Representation
+
+This is what an actual collection of customers could look like.
+
+```json
+{
+  "verbose": {
+    "version": "0.1",
+
+    "id": "customers",
+    "rels": [ "collection" ]
+    "typeOf": "http://example.com/customers#customers",
+
+    "links": [
+      {
+        "rels": [ "profile" ],
+        "href": "http://example.com/customers"
+      }
+    ],
+    
+    "queries": [
+      {
+        "id": "search",
+        "rels": [ "search" ],
+        "typeOf": "http://example.com/customers#search",
+        "description": "Customer search",
+        "queryParams": [
+          {
+            "title": "Company Name",
+            "name": "companyName"
+          },
+          {
+            "title": "Email Address",
+            "name": "email"
+          }
+        ]
+      }
+    ],
+    
+    "includes": [
+      {
+        "classes": [ "customer" ]
+        "href": "/customer/1",
+        "rels": [ "item" ],
+        "typeOf": "http://example.com/customers#customer", 
+        "properties": {
+          "companyName": "ACME, Inc.",
+          "firstName": "John",
+          "lastName": "Doe",
+          "email": "john@acme.com"
+        }
+      },
+      {
+        "classes": [ "customer" ]
+        "href": "/customer/2",
+        "rels": [ "item" ],
+        "typeOf": "http://example.com/customers#customer", 
+        "properties": {
+          "companyName": "ACME, Inc.",
+          "firstName": "Jane",
+          "lastName": "Doe",
+          "email": "jane@acme.com"
+        }
+      }
+    ]
+  }
+}
+```
+
+## Compared to Others
+
+Since Verbose can includes many things from other media types, it should be able to look them if you want.
+
+### HAL
+
+This example is the example from the [HAL spec](http://stateless.co/hal_specification.html). Because the HAL spec says you should not assume the embedded resources are full resources, I've put them in the `partials` array.
+
+```json
+{
+  "verbose": {
+    "version": "0.1",
+
+    "prefixes": [
+      {
+        "prefix": "ea",
+        "href": "http://example.com/docs/rels/"
+      }
+    ],
+
+    "properties": {
+      "currentlyProcessing": 14,
+      "shippedToday": 20
+    },
+
+    "links": [
+      {
+        "rels": [ "self" ],
+        "href": "/orders"
+      },
+      {
+        "rels": [ "next" ],
+        "href": "/orders?page=2"
+      },
+      {
+        "rels": [ "ea:admin" ],
+        "href": "/admins/2",
+        "label": "Fred"
+      },
+      {
+        "rels": [ "ea:admin" ],
+        "href": "/admins/5",
+        "label": "Kate"
+      }
+    ],
+
+    "templatedLinks": [
+      {
+        "rels": [ "ea:find" ],
+        "hreft": "/orders{?id}",
+        "uriParams": [
+          {
+            "name": "id",
+            "mapsTo": "id"
+          }
+        ]
+      }
+    ],
+
+    "partials": [
+      {
+        "rels": [ "ea:order" ],
+        "properties": {
+          "total": 30.00,
+          "currency": "USD",
+          "status": "shipped"
+        },
+        "links": [
+          {
+            "rels": [ "self" ],
+            "href": "/orders/123"
+          },
+          {
+            "rels": [ "ea:basket" ],
+            "href": "/baskets/98712"
+          },
+          {
+            "rels": [ "ea:customer" ],
+            "href": "/customers/7809"
+          }
+        ]
+      },
+      {
+        "rels": [ "ea:order" ],
+        "properties": {
+          "total": 20.00,
+          "currency": "USD",
+          "status": "processing"
+        },
+        "links": [
+          {
+            "rels": [ "self" ],
+            "href": "/orders/124"
+          },
+          {
+            "rels": [ "ea:basket" ],
+            "href": "/baskets/98713"
+          },
+          {
+            "rels": [ "ea:customer" ],
+            "href": "/customers/12369"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Siren
+
+This is taken from the example in the [Siren spec](https://github.com/kevinswiber/siren#example). I took a little bit of liberty with this one and considered one of the embedded entities to be a partial representation.
+
+```json
+{
+  "verbose": {
+    "classes": [ "order" ],
+    "properties": { 
+        "orderNumber": 42, 
+        "itemCount": 3,
+        "status": "pending"
+    },
+    "actions": [
+      {
+        "classes": [ "add-item" ],
+        "title": "Add Item",
+        "method": "POST",
+        "href": "http://api.x.io/orders/42/items",
+        "requestTypes": [ "application/x-www-form-urlencoded" ],
+        "bodyParams": [
+          { "name": "orderNumber", "type": "number", "format": "hidden", "value": "42" },
+          { "name": "productCode", "type": "string", "format": "text" },
+          { "name": "quantity", "type": "number", "format": "number" }
+        ]
+      }
+    ],
+    "links": [
+      {
+        "rels": [ "self" ],
+        "href": "http://api.x.io/orders/42"
+      },
+      {
+        "rels": [ "previous" ],
+        "href": "http://api.x.io/orders/41"
+      },
+      {
+        "rels": [ "next" ],
+        "href": "http://api.x.io/orders/43"
+      }
+    ],
+    "partials": [
+      { 
+        "classes": [ "items", "collection" ], 
+        "rels": [ "http://x.io/rels/order-items" ], 
+        "href": "http://api.x.io/orders/42/items"
+      }
+    ],
+    "includes": [
+      {
+        "classes": [ "info", "customer" ],
+        "rels": [ "http://x.io/rels/customer" ], 
+        "properties": { 
+          "customerId": "pj123",
+          "name": "Peter Joseph"
+        },
+        "links": [
+          { 
+            "rels": [ "self" ],
+            "href": "http://api.x.io/customers/pj123"
+          }
         ]
       }
     ]
