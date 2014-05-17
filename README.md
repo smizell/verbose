@@ -5,18 +5,11 @@
 
 ## Description
 
-Verbose is a hypermedia type aimed at doing as much as possible by being overly verbose. Because Verbose provides so many ways to describe hypermedia, it has a number of uses.
-
-* Profiles
-* Link Relations
-* Resource Representations
-* API Documenation
-
-Since it can be both the profile/link relation and message, as little or as much information can be included in the message depending
+Verbose is a general-purpose, multi-use hypermedia format that lives up to its name. It can be used for profiles, link relations, resource representations, and api documentation if you so dare. It is built from all of the main [Hyperextend](https://github.com/smizell/hyperextend) components. Because of this, it should cover most or all of the [Hyperschema.org Core Definitions](http://hyperschema.org/core/).
 
 ## Schema
 
-Verbose is built from all of the main [Hyperextend](https://github.com/smizell/hyperextend) components. Because of this, it should cover most or all of the [Hyperschema.org Core Definitions](http://hyperschema.org/core/). It's schema is heavily dependent on Hyperextend's schema.
+ It's schema is heavily dependent on Hyperextend's schema.
 
 ```json
 {
@@ -305,9 +298,9 @@ Consider this a representation that is described by the link relation above. It 
 }
 ```
 
-### Profile
+### Profile Example
 
-Verbose can also provide a profile with all of its wordiness. In this example, I'll show a document that resembles an [ALPS document](http://alps.io/spec/index.html#rfc.section.1.3) (which is used for this example).
+Verbose can also provide a profile with all of its wordiness.
 
 #### Profile
 
@@ -315,30 +308,38 @@ Verbose can also provide a profile with all of its wordiness. In this example, I
 {
   "verbose": {
     "version": "0.1",
-    "title": "List of Contacts",
-    "description": "A list of contacts",
+    
+    "title": "Collection of Customers",
+    "description": "A collection of customers",
+
+    "id": "customers",
+    "rels": [ "collection" ]
     
     "queries": [
       {
-        "id": "collection",
-        "description": "Simple link/form for getting a list of contacts",
+        "id": "search",
+        "rels": [ "search" ],
+        "description": "Customer search",
         "queryParams": [
           {
-            "title": "Name Search",
-            "description": "Input for search form",
-            "name": "nameSearch"
+            "title": "Company Name",
+            "description": "Company name search field",
+            "name": "companyName"
           }
         ],
-        "returns": "#contact"
+        "returns": "#"
       }
     ],
     
     "resources": [
       {
-        "id": "contact",
-        "description": "Individual contact",
+        "id": "customer",
+        "rels": [ "item" ],
+        "description": "Customer resource",
         "semantics": [
-          { "name": "fullName" },
+          { "name": "companyName" },
+          { "name": "firstName" },
+          { "name": "lastName" },
           { "name": "email" },
           { "name": "phone" }
         ]
