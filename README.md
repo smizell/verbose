@@ -64,7 +64,11 @@ Verbose is a general-purpose, multi-use hypermedia format that lives up to its n
           "type": "array",
           "items": { "$ref": "http://hyperschema.org/extensions/hyperextend/resourcetemplate#" }
         },
-        "resources": {
+        "partials": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/resource" }
+        },
+        "includes": {
           "type": "array",
           "items": { "$ref": "#/definitions/resource" }
         },
@@ -79,67 +83,73 @@ Verbose is a general-purpose, multi-use hypermedia format that lives up to its n
 
 ### Verbose Namespace
 
-The entire Verbose object is namespaced within a `verbose` property at root.
+The entire Verbose object is namespaced within a `verbose` property at root. The `verbose` property is a verbose object.
 
-### Resource Properties
+### Verbose Object
+
+#### Resource Properties
 
 Verbose provides a place for resource properties along with semantics about those properties.
 
-#### `properties`
+##### `properties`
 
 The `properties` property is simply a JSON object that contains key/value pairs.
 
-#### `semantics`
+##### `semantics`
 
 The `semantics` property allows for defining semantics about each property. See the [Hyperextend Semantic](https://github.com/smizell/hyperextend#semantic) component for details.
 
-### Links
+#### Links
 
 The `links` property is an array of [Hyperdescribe Link](https://github.com/smizell/hyperextend#link) components. A link should be considered safe and idempotent and by default uses the `GET` HTTP method.
 
 The `href` property is required and at least one item should be included in `rels` for link objects.
 
-### Actions
+#### Actions
 
 The `actions` property is an array of [Hyperdescribe Action](https://github.com/smizell/hyperextend#action) components. An action can be safe or unsafe, and idempotent or non-idempotent depending on the method.
 
 The `href` and `method` properties are required.
 
-### Queries
+#### Queries
 
 The `queries` property is an array of [Hyperdescribe Query](https://github.com/smizell/hyperextend#query) components. A query should be considered safe and idempotent and by default uses the `GET` HTTP method.
 
 The `href` property is required and at least one item should be included in `rels` for link objects.
 
-### Templated Links
+#### Templated Links
 
 The `templatedLinks` property is an array of [Hyperdescribe TemplatedLink](https://github.com/smizell/hyperextend#templatedlink) components. A link should be considered safe and idempotent and by default uses the `GET` HTTP method. This type of link provides a way to have both URI templates and a normal link in the same object.
 
 The `href` property is required and at least one item should be included in `rels` for link objects.
 
-### Templated Actions
+#### Templated Actions
 
 The `templatedActions` property is an array of [Hyperdescribe templatedAction](https://github.com/smizell/hyperextend#templatedaction) components. An action can be safe or unsafe, and idempotent or non-idempotent depending on the method. This type of action provides a way to have both URI templates and body params in the same object.
 
 The `href` and `method` properties are required.
 
-### Templated Queries
+#### Templated Queries
 
 The `templatedQueries` property is an array of [Hyperdescribe TemplatedQuery](https://github.com/smizell/hyperextend#templatedquery) components. A templated query should be considered safe and idempotent and by default uses the `GET` HTTP method. This type of query provides a way to have both URI templates and a normal query string in the same object.
 
 The `href` property is required and at least one item should be included in `rels` for link objects.
 
-### Resource Template
+#### Resource Template
 
-The `templates` property is an array of [Hyperdescribe Template](https://github.com/smizell/hyperextend#resource-template) components. A templated query should be considered safe and idempotent and by default uses the `GET` HTTP method. This type of qu
+The `templates` property is an array of [Hyperdescribe Template](https://github.com/smizell/hyperextend#resource-template) components. A templated query should be considered safe and idempotent and by default uses the `GET` HTTP method.
 
-### Embedded Resource
+#### Partials
 
-The `resources` property is an array of Verbose resources. It is a way to nest and embed resources into one document.
+The `partials` property is an array of Verbose objects. Partials are verbose objects, but can be used to include objects that are not full representations.
 
-## Uses
+### Includes
 
-### CRUD APIs
+The `includes` property is an array of Verbose objects. It is a way to nest and embed verbose objects.
+
+### Uses
+
+#### CRUD APIs
 
 As you can see, this is very similar to what a [Collection+JSON](http://amundsen.com/media-types/collection/examples/) document would look like.
 
@@ -180,7 +190,7 @@ This would be a resource represenation where it says "Here is a resource and her
       }
     ], 
     
-    "resources": [
+    "includes": [
       {
         "classes": [ "customer" ],
         "href": "/customers/1",
@@ -204,11 +214,11 @@ This would be a resource represenation where it says "Here is a resource and her
 }
 ```
 
-### Minimal Message plus Link Relations
+#### Minimal Message plus Link Relations
 
 This will be very similar to how HAL is designed, where it is very minimal and relies on profiles and link relations to define how to interact with resources. For this approach, I'm going to show a link relation document and a resource representation.
 
-#### Link Relation
+##### Link Relation
 
 As you can see, this link relation contains a lot of the same data as the CRUD example above, but with the resource-specific data stripped out, with more readable information added. It also includes semantics.
 
@@ -248,7 +258,7 @@ As you can see, this link relation contains a lot of the same data as the CRUD e
 }
 ```
 
-#### Resource Representation
+##### Resource Representation
 
 Consider this a representation that is described by the link relation above. It has less information than the CRUD example.
 
@@ -274,7 +284,7 @@ Consider this a representation that is described by the link relation above. It 
       }
     ],
     
-    "resources": [
+    "includes": [
       {
         "classes": [ "customer" ],
         "href": "/customers/1",
@@ -298,11 +308,11 @@ Consider this a representation that is described by the link relation above. It 
 }
 ```
 
-### Profile Example
+#### Profile Example
 
 Verbose can also provide a profile with all of its wordiness.
 
-#### Profile
+##### Profile
 
 ```json
 {
@@ -336,7 +346,7 @@ Verbose can also provide a profile with all of its wordiness.
       }
     ],
     
-    "resources": [
+    "includes": [
       {
         "id": "customer",
         "rels": [ "item" ],
