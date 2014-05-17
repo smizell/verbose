@@ -481,17 +481,6 @@ Consider this a representation that is described by the link relation above. It 
       "total_customers": 45
     },
     
-    "queries": [
-      {
-        "rels": [ "search" ],
-        "href": "/customers",
-        "queryParams": [
-          { "name": "first_name", "type": "string", "label": "First Name" },
-          { "name": "last_name", "type": "string", "label": "Last Name" }
-        ]
-      }
-    ],
-    
     "includes": [
       {
         "classes": [ "customer" ],
