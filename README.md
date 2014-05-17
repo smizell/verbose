@@ -149,7 +149,7 @@ The `includes` property is an array of Verbose objects. It is a way to nest and 
 
 ### Fields
 
-Within `queries`, `actions`, `templatedLinks`, `templatedQueries`, and `templatedActions, there are arrays that include [Hyperextend Field](https://github.com/smizell/hyperextend#field) objects. Verbose has some special rules for them.
+Within `queries`, `actions`, `templatedLinks`, `templatedQueries`, and `templatedActions`, there are arrays that include [Hyperextend Field](https://github.com/smizell/hyperextend#field) objects. Verbose has some special rules for them.
 
 * `defaultValue` is that value that should be sent if no value is picked
 * `currentValue` is the current value of the field, which can be changed
@@ -383,7 +383,7 @@ This is what an actual collection of customers could look like.
     "version": "0.1",
 
     "id": "customers",
-    "rels": [ "collection" ]
+    "rels": [ "collection" ],
     "typeOf": "http://example.com/customers#customers",
 
     "links": [
@@ -414,7 +414,7 @@ This is what an actual collection of customers could look like.
     
     "includes": [
       {
-        "classes": [ "customer" ]
+        "classes": [ "customer" ],
         "href": "/customer/1",
         "rels": [ "item" ],
         "typeOf": "http://example.com/customers#customer", 
@@ -426,7 +426,7 @@ This is what an actual collection of customers could look like.
         }
       },
       {
-        "classes": [ "customer" ]
+        "classes": [ "customer" ],
         "href": "/customer/2",
         "rels": [ "item" ],
         "typeOf": "http://example.com/customers#customer", 
