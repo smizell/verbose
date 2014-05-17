@@ -104,11 +104,51 @@ The `properties` property is simply a JSON object that contains key/value pairs.
 
 The `semantics` property allows for defining semantics about each property. See the [Hyperextend Semantic](https://github.com/smizell/hyperextend#semantic) component for details.
 
+##### Example
+
+```json
+{
+  "verbose": {
+    "semantics": [
+      {
+        "name": "email",
+        "type": "string",
+        "format": "email",
+        "label": "Email"
+      }
+    ],
+    "properties": {
+      "email": "john@doe.com"
+    }
+  }
+}
+```
+
 #### Links
 
 The `links` property is an array of [Hyperdescribe Link](https://github.com/smizell/hyperextend#link) components. A link should be considered safe and idempotent and by default uses the `GET` HTTP method.
 
 The `href` property is required and at least one item should be included in `rels` for link objects.
+
+##### Example
+
+```json
+{
+  "verbose": {
+    "links": [
+      {
+        "classes": [ "customer" ],
+        "rels": [ "item", "http://example.com/rels/customer"],
+        "responseTypes": [
+          "application/json",
+          "application/hal"
+        ],
+        "href": "/customer/4"
+      }
+    ]
+  }
+}
+```
 
 #### Actions
 
@@ -116,11 +156,66 @@ The `actions` property is an array of [Hyperdescribe Action](https://github.com/
 
 The `href` and `method` properties are required.
 
+##### Example
+
+```json
+{
+  "verbose": {
+    "actions": [
+      {
+        "title": "Create Customer",
+        "rels": [ "http://example.com/rels/customers"],
+        "href": "/customers",
+        "method": "POST",
+        "bodyParams": [
+          {
+            "name": "first_name",
+            "type": "string",
+            "label": "First Name"
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "label": "Last Name"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 #### Queries
 
 The `queries` property is an array of [Hyperdescribe Query](https://github.com/smizell/hyperextend#query) components. A query should be considered safe and idempotent and by default uses the `GET` HTTP method.
 
 The `href` property is required and at least one item should be included in `rels` for link objects.
+
+##### Example
+
+```json
+{
+  "verbose": {
+    "queries": [
+      {
+        "id": "search",
+        "rels": [ "search" ],
+        "description": "Customer search",
+        "queryParams": [
+          {
+            "title": "Company Name",
+            "name": "companyName"
+          },
+          {
+            "title": "Email Address",
+            "name": "email"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 #### Templated Links
 
@@ -128,11 +223,60 @@ The `templatedLinks` property is an array of [Hyperdescribe TemplatedLink](https
 
 The `href` property is required and at least one item should be included in `rels` for link objects.
 
+##### Example
+
+```json
+{
+  "verbose": {
+    "templatedLinks": [
+      {
+        "classes": [ "customer" ],
+        "rels": [ "item", "http://example.com/rels/customer"],
+        "responseTypes": [
+          "application/json",
+          "application/hal"
+        ],
+        "hreft": "/customer/{id}"
+      }
+    ]
+  }
+}
+```
+
 #### Templated Actions
 
 The `templatedActions` property is an array of [Hyperdescribe templatedAction](https://github.com/smizell/hyperextend#templatedaction) components. An action can be safe or unsafe, and idempotent or non-idempotent depending on the method. This type of action provides a way to have both URI templates and body params in the same object.
 
 The `href` and `method` properties are required.
+
+##### Example
+
+```json
+{
+  "verbose": {
+    "templatedActions": [
+      {
+        "title": "Edit Customer",
+        "rels": [ "http://example.com/rels/customer"],
+        "hreft": "/customer/{id}",
+        "method": "PUT",
+        "bodyParams": [
+          {
+            "name": "first_name",
+            "type": "string",
+            "label": "First Name"
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "label": "Last Name"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 #### Templated Queries
 
@@ -140,9 +284,59 @@ The `templatedQueries` property is an array of [Hyperdescribe TemplatedQuery](ht
 
 The `href` property is required and at least one item should be included in `rels` for link objects.
 
+##### Example
+
+```json
+{
+  "verbose": {
+    "templatedQueries": [
+      {
+        "title": "User Image Search",
+        "rels": [ "search" ],
+        "hreft": "/users/{id}/images",
+        "queryParams": [
+          {
+            "name": "image_name",
+            "type": "string",
+            "label": "Image Name"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 #### Resource Template
 
 The `templates` property is an array of [Hyperdescribe Template](https://github.com/smizell/hyperextend#resource-template) components. A templated query should be considered safe and idempotent and by default uses the `GET` HTTP method.
+
+##### Example
+
+```json
+{
+  "verbose": {
+    "availableMethods": [ "GET", "POST" ],
+    "templates": [
+      {
+        "mediaTypes": [ "application/x-www-form-urlencoded" ],
+        "fields": [
+          {
+            "name": "first_name",
+            "type": "string",
+            "label": "First Name"
+          },
+          {
+            "name": "last_name",
+            "type": "string",
+            "label": "Last Name"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 #### Partials
 
