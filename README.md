@@ -439,9 +439,9 @@ This is what an actual collection of customers could look like.
 }
 ```
 
-## Compared to Others
+## Compared to Other Hypermedia Formats
 
-Since Verbose can includes many things from other media types, it should be able to look them if you want.
+Since Verbose can includes many things from other media types, it should be able to look like them if you want.
 
 ### HAL
 
