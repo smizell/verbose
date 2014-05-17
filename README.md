@@ -1,7 +1,8 @@
 # Verbose
 
 **Status**: Draft  
-**Version**: 0.1.0
+**Version**: 0.1.0  
+**Proposed Registration**: application/vnd.verbose+json
 
 ## Description
 
