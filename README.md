@@ -308,7 +308,7 @@ Verbose can also provide a profile with all of its wordiness.
 {
   "verbose": {
     "version": "0.1",
-    
+
     "title": "Collection of Customers",
     "description": "A collection of customers",
 
@@ -325,6 +325,11 @@ Verbose can also provide a profile with all of its wordiness.
             "title": "Company Name",
             "description": "Company name search field",
             "name": "companyName"
+          },
+          {
+            "title": "Email Address",
+            "description": "Email address search field",
+            "name": "email"
           }
         ],
         "returns": "#"
