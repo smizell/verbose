@@ -695,19 +695,6 @@ This example is the example from the [HAL spec](http://stateless.co/hal_specific
       }
     ],
 
-    "templatedLinks": [
-      {
-        "rels": [ "ea:find" ],
-        "hreft": "/orders{?id}",
-        "uriParams": [
-          {
-            "name": "id",
-            "mapsTo": "id"
-          }
-        ]
-      }
-    ],
-
     "partials": [
       {
         "rels": [ "ea:order" ],
