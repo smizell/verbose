@@ -1,6 +1,8 @@
 Status
 ======
 
-**Current Version**: |version|  
+**Current Version**: |version|
+
 **Current Release**: |release|
+
 **Build Date**: |today|
