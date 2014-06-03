@@ -1,8 +1,118 @@
 Specification
 =============
 
-Base Objects
-------------
+**Current Version**: |version|
+
+**Current Release**: |release|
+
+**Build Date**: |today|
+
+**Proposed Registration**: ``application/vnd.verbose+json``
+
+Glossary of Properties
+----------------------
+
+Verbose provides a set of common properties for every supported item along with providing properties that are shared between specific items. Because of this, these properties are defined here to allow for them to be used throughout this document.
+
+Common
+######
+
+These common properties are available for any item in the document, from links to resources.
+
+``id``
+  A unique identifier for an item. It MUST be unique for the entire document. It is a ``string``.
+
+``classes``
+  An ``array`` of classifiers for an item. MAY be used to specify of what kind an item is or names for an item.
+
+``title``
+  A human-readable title for an item. It is a ``string``.
+
+``description``
+  A human-readable description for an item. It is a ``string``.
+
+``extends``
+  A way to extend the item with other items. It is an ``array``.
+
+Shared
+######
+
+These properties are reused by several items below.
+
+``rels``
+  An ``array`` of link relations for an item.
+
+``responseTypes``
+  An ``array`` of available media types on the server.
+
+``typeOf``
+  A way to specify what type of item an item is. Useful when specifying Schema.org values or linking to profiles.
+
+``embedAs``
+  A way to tell the client how an item should be embedded. These are the possible values:
+
+  1. image
+  2. audio
+  3. video
+  4. text
+  5. application
+
+``method``
+  For specifying an HTTP method
+
+``uriParams``
+  An ``array`` of ``field`` objects that is used for specifying the parameters for a URI template
+
+``queryParams``
+  An ``array`` of ``field`` objects that is used for specifying the parameters for a query
+
+``bodyParams``
+  An ``array`` of ``field`` objects that is used for specifying the parameters for the body of a request  
+
+``href``
+  URL of the item
+
+``hreft``
+  Templated URL of the item
+
+Prefixes
+--------
+
+Prefixes can be used to shorten URLs. When used, they are available throughout the entire document.
+
+``prefixes``
+  This is an ``array`` of prefix objects.
+
+``prefix``
+  This is an object with two properties: ``prefix`` and ``href``. 
+
+Example
+#######
+
+::
+
+  {
+    "verbose": {
+      "version": "1.0",
+      "prefixes": [
+        {
+          "prefix": "schema",
+          "href": "http://schema.org"
+        }
+      ]
+    }
+  }
+
+Namespace
+---------
+
+All Verbose documents MUST have a ``verbose`` namespace.
+
+::
+
+  {
+    "verbose": {}
+  }
 
 Properties
 ----------
@@ -30,8 +140,44 @@ Below is an example showing a resource that has ``properties`` and ``semantics``
     }
   }
 
+Field
+-----
+
+A ``field`` object provides the following properties:
+
+``name``
+  The name of the field. This is a ``string``.
+
+``defaultValue``
+  The optional default value of the field. This is a ``string``.
+
+``currentValue``
+  The current value of the field. This is a ``string``.
+
+``options``
+  An ``array`` of option objects
+
+``option``
+  An object with a ``name`` and ``value`` property. This is an ``object``.
+
+``type``
+  HTML input types. This is a ``string``.
+
+``label``
+  Human-readable label for the field
+
+``mapsTo``
+  An ``array`` of Verbose Path strings
+
 Links
 -----
+
+The ``links`` property is an array of ``link`` objects. A ``link`` object allows for the following properties specified in the glossary:
+
+1. ``rels``
+2. ``responseTypes``
+3. ``embedAs``
+4. ``href``
 
 Example
 #######
@@ -63,6 +209,22 @@ The link below provides a link to a customer resource.
 
 Actions
 -------
+
+An action is a way to provide non-idempotent actions that can be taken on a resource. 
+
+The ``actions`` property is an array of ``action`` objects. An ``action`` object allows for the following properties specified in the glossary:
+
+1. ``rels``
+2. ``responseTypes``
+3. ``embedAs``
+4. ``method``
+5. ``bodyParams``
+6. ``href``
+
+In addition to these properties, it also supports:
+
+``href``
+  URL of the resource on which the action is being taken
 
 Example
 #######
@@ -102,6 +264,16 @@ This action can be used to create a customer.
 Queries
 -------
 
+Queries are safe GET requests that provide a way for specifying query parameters.
+
+The ``queries`` property is an array of ``query`` objects. A ``query`` object allows for the following properties specified in the glossary:
+
+1. ``rels``
+2. ``responseTypes``
+3. ``embedAs``
+4. ``queryParams``
+5. ``href``
+
 Example
 #######
 
@@ -138,6 +310,14 @@ This query can be used for searching customers. It has two available query param
 Templated Links
 ---------------
 
+The ``templatedLinks`` property is an array of ``templateLink`` objects. A ``templatedLink`` object allows for the following properties specified in the glossary:
+
+1. ``rels``
+2. ``responseTypes``
+3. ``embedAs``
+4. ``uriParams``
+5. ``hreft``
+
 Example
 #######
 
@@ -171,6 +351,16 @@ In this case, there is one URI parameters call ``id``, which is a number.
 
 Templated Actions
 -----------------
+
+The ``templatedActions`` property is an array of ``templateAction`` objects. A ``templatedAction`` object allows for the following properties specified in the glossary:
+
+1. ``rels``
+2. ``responseTypes``
+3. ``embedAs``
+4. ``method``
+5. ``bodyParams``
+6. ``uriParams``
+7. ``hreft``
 
 Example
 #######
@@ -214,6 +404,15 @@ In this example, there are both URI parameters and body parameters for building 
 
 Templated Queries
 -----------------
+
+The ``templatedQueries`` property is an array of ``templatedQuery`` objects. A ``templatedQuery`` object allows for the following properties specified in the glossary:
+
+1. ``rels``
+2. ``responseTypes``
+3. ``embedAs``
+4. ``queryParams``
+5. ``uriParams``
+6. ``hreft``
 
 Example
 #######
@@ -306,5 +505,289 @@ This is an example of a resource that provides templates for working with this p
 Embedded Resources
 ------------------
 
+Partials
+########
+
+Partial resources are considered to be a partial representation of the embedded resource. If the full resource is desired, it can be requested if a ``self`` link is available.
+
+Includes
+########
+
+Included resources are considered to be full representations.
+
 Errors
 ------
+
+The ``errors`` property is a Verbose object that can be used specifically for errors. The properties and links for the error are left up to the designer.
+
+::
+
+  {
+    "versbose": {
+      "version": "1.0",
+      "errors": {
+        "properties": {
+          "message": "There was an error when creating this resource"
+        }
+      }
+    }
+  }
+
+Verbose-Path
+------------
+
+Verbose-Path is an optional way to reference objects throughout a Verbose document or in other Verbose documents. It is meant to be used strictly with Verbose documents. It allows for the symbols below.
+
+* The ``#`` alone specifies the root-level resource
+* The ``#`` MAY be used with an ID to specify a particular item
+* The ``.`` specifies a class name
+* The ``@`` specifies a link relation
+* The ``/`` can be used for nesting
+* The ``!`` can be used for getting the property of an object
+
+Root
+####
+
+Using a ``#`` alone specifies the root resource.
+
+::
+  
+  {
+    "verbose": {
+      "version": "1.0",
+      "href": "/customers",
+      "availableMethods": [ "GET", "POST" ],
+      "templates": [
+        {
+          "forEach": [ "#" ],
+          "mediaTypes": [ "application/x-www-form-urlencoded" ],
+          "fields": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "label": "First Name"
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "label": "Last Name"
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+ID
+##
+
+This example uses a path to point to an ID in the document. IDs MUST be unique for a document.
+
+::
+  
+  {
+    "verbose": {
+      "version": "1.0",
+      "href": "/customers",
+      "availableMethods": [ "GET", "POST" ],
+      "templates": [
+        {
+          "forEach": [ "#customer" ],
+          "mediaTypes": [ "application/x-www-form-urlencoded" ],
+          "fields": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "label": "First Name"
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "label": "Last Name"
+            }
+          ]
+        }
+      ],
+      "includes": [
+        {
+          "id": "customer",
+          "properties": {
+            "first_name": "John",
+            "last_name": "Doe"
+          }
+        }
+      ]
+    }
+  }
+
+Class
+#####
+
+This example in the ``forEach`` section specifies the template can be used for each include that has a class of ``customer``.
+
+::
+
+  {
+    "verbose": {
+      "version": "1.0",
+      "href": "/customers",
+      "availableMethods": [ "GET", "POST" ],
+      "templates": [
+        {
+          "forEach": [ "#/includes.customer" ],
+          "mediaTypes": [ "application/x-www-form-urlencoded" ],
+          "fields": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "label": "First Name"
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "label": "Last Name"
+            }
+          ]
+        }
+      ],
+      "includes": [
+        {
+          "classes": [ "customer" ],
+          "properties": {
+            "first_name": "John",
+            "last_name": "Doe"
+          }
+        }
+      ]
+    }
+  }
+
+Link Relation
+#############
+
+This example says the template can be used for each include that has ``item`` for a link relation.
+
+::
+
+  {
+    "verbose": {
+      "version": "1.0",
+      "href": "/customers",
+      "availableMethods": [ "GET", "POST" ],
+      "templates": [
+        {
+          "forEach": [ "#/includes@item" ],
+          "mediaTypes": [ "application/x-www-form-urlencoded" ],
+          "fields": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "label": "First Name"
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "label": "Last Name"
+            }
+          ]
+        }
+      ],
+      "includes": [
+        {
+          "rels": [ "item" ],
+          "properties": {
+            "first_name": "John",
+            "last_name": "Doe"
+          }
+        }
+      ]
+    }
+  }
+
+Nested Items
+############
+
+Using the slash, the path can specify nested items. The path below in the ``forEach`` property says:
+
+1. Look in the ``includes`` in the root resource for items with ``customer`` as class
+2. In those items, look in the ``includes`` for items with the link relation ``item``
+
+::
+
+  {
+    "verbose": {
+      "version": "1.0",
+      "href": "/",
+      "templates": [
+        {
+          "forEach": [ "#/includes.customers/includes@item" ],
+          "mediaTypes": [ "application/x-www-form-urlencoded" ],
+          "fields": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "label": "First Name"
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "label": "Last Name"
+            }
+          ]
+        }
+      ],
+      "includes": [
+        {
+          "classes": [ "customers" ],
+          "rels": [ "collection" ],
+          "includes": [
+            {
+              "rels": [ "item" ],
+              "properties": {
+                "first_name": "John",
+                "last_name": "Doe"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+Properties
+##########
+
+The ``!`` can be used to specify properties of an item. In the example below, ``mapsTo`` points to the corresponding properties.
+
+::
+  
+  {
+    "verbose": {
+      "version": "1.0",
+      "href": "/",
+      "properties": {
+        "first_name": "John",
+        "last_name": "Doe"
+      },
+      "templates": [
+        {
+          "forEach": [ "#" ],
+          "mediaTypes": [ "application/x-www-form-urlencoded" ],
+          "fields": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "label": "First Name",
+              "mapsTo": [ "#/properties!first_name" ]
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "label": "Last Name",
+              "mapsTo": [ "#/properties!last_name" ]
+            }
+          ]
+        }
+      ]
+    }
+  }

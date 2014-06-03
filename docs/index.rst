@@ -3,7 +3,8 @@ Verbose Hypermedia Format
 
 Verbose is a general-purpose, multi-use hypermedia format that can be used to build robust and highly-descriptive APIs. 
 
-**Important**: Verbose is currently under development, which means things could change before it's ready to be used. Please keep this in mind if you desire to start using it.
+.. note ::
+  Verbose is currently under development, which means things could change before it's ready to be used. Please keep this in mind if you desire to start using it.
 
 Content
 -------
