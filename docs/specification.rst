@@ -533,10 +533,10 @@ The ``errors`` property is a Verbose object that can be used specifically for er
     }
   }
 
-Verbose-Path
+Verbose Path
 ------------
 
-Verbose-Path is an optional way to reference objects throughout a Verbose document or in other Verbose documents. It is meant to be used strictly with Verbose documents. It allows for the symbols below.
+Verbose Path is a way to reference objects throughout a Verbose document or in other Verbose documents. It is meant to be used strictly with Verbose. It allows for the symbols below to be used in the path string.
 
 * The ``#`` alone specifies the root-level resource
 * The ``#`` MAY be used with an ID to specify a particular item
