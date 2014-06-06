@@ -643,7 +643,7 @@ Partial resources are considered to be a partial representation of the embedded 
 Includes
 ########
 
-Included resources are considered to be full representations.
+Included resources are just to be considered as included resources and MAY be full representations. The reason for this and the ``partials`` property is that it allows for explicitly telling the client that the resource needs to be requested if the full resource is desired.
 
 .. _resource:
 
