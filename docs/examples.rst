@@ -189,7 +189,7 @@ Collection+JSON
 
 ::
 
-  { 
+  {
     "verbose" : {
       "version" : "1.0",
       "rels": [ "collection" ],
@@ -214,7 +214,7 @@ Collection+JSON
           },
           "links" : [
             {
-              "rels" : [ "blog" ], 
+              "rels" : [ "blog" ],
               "href" : "http://examples.org/blogs/jdoe",
               "label" : "Blog"
             },
@@ -239,7 +239,7 @@ Collection+JSON
           },
           "links" : [
             {
-              "rels" : [ "blog" ], 
+              "rels" : [ "blog" ],
               "href" : "http://examples.org/blogs/msmith",
               "label" : "Blog"
             },
@@ -264,7 +264,7 @@ Collection+JSON
           },
           "links" : [
             {
-              "rels" : [ "blog" ], 
+              "rels" : [ "blog" ],
               "href" : "http://examples.org/blogs/rwilliams",
               "label" : "Blog"
             },
@@ -300,8 +300,8 @@ Collection+JSON
             { "name" : "avatar", "defaultValue" : "", "label" : "Avatar" }
           ]
         }
-      }
-    } 
+      ]
+    }
   }
 
 JSON API
