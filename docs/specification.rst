@@ -154,7 +154,7 @@ Semantics
 
 ``name``
   Name of property
-  
+
 ``type``
   The JSON type for this field value
 
@@ -941,3 +941,4 @@ The ``!`` can be used to specify properties of an item. In the example below, ``
       ]
     }
   }
+

@@ -492,7 +492,7 @@ This example lets the templated links map its parameters to specific properties 
       "templatedLinks": [
         {
           "classes": [ "author", "people" ],
-          "hreft": "http://example.com/people/{author_id}"
+          "hreft": "http://example.com/people/{author_id}",
           "uriParams": [
             {
               "name": "author_id",
@@ -514,34 +514,3 @@ This example lets the templated links map its parameters to specific properties 
     }
   }
 
-This example allows for mapping the properties themselves to templated links through the semantics.
-
-::
-
-  {
-    "verbose": {
-      "version": "1.0",
-      "semantics": [
-        { "name": "author_id", "mapsTo": [ "#/templatedLinks.author/uriParams!name=author_id" ] },
-        { "name": "comment_ids", "type": "array", "mapsTo": [ "#/templatedLinks.comments/uriParams!name=comment_id" ] }
-      ],
-      "properties": {
-        "id": 1,
-        "title": "Rails is Omakase",
-        "author_id": "9",
-        "comment_ids": [ "5", "12", "17", "20" ]
-      },
-      "templatedLinks": [
-        {
-          "classes": [ "author", "people" ],
-          "hreft": "http://example.com/people/{author_id}"
-          "uriParams": [ { "name": "author_id" } ]
-        },
-        {
-          "classes": [ "comments" ],
-          "hreft": "http://example.com/comments/{comment_id}",
-          "uriParams": [ { "name": "comment_id" } ]
-        }
-      ]
-    }
-  }
