@@ -149,6 +149,29 @@ All Verbose documents MUST have a ``verbose`` namespace.
 Properties
 ----------
 
+Semantics
+#########
+
+``name``
+  Name of property
+  
+``type``
+  The JSON type for this field value
+
+``format``
+  HTML input types. This is a ``string``.
+
+``label``
+  Human-readable label for a property
+
+``mapsTo``
+  An ``array` of Verbose Path strings (see Verbose Path section for details on how this is used)
+
+Properties
+##########
+
+The ``properties`` object is simply a JSON object. Its semantics are defined by the Semantic object
+
 Example
 #######
 
@@ -193,13 +216,16 @@ A ``field`` object provides the following properties:
   An object with a ``name`` and ``value`` property. This is an ``object``.
 
 ``type``
+  The JSON type for this field value
+
+``format``
   HTML input types. This is a ``string``.
 
 ``label``
   Human-readable label for the field
 
 ``mapsTo``
-  A Verbose Path string (see Verbose Path section for details on how this is used)
+  An ``array` of Verbose Path strings (see Verbose Path section for details on how this is used)
 
 Links
 -----

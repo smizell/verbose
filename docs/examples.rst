@@ -470,3 +470,78 @@ Collection+JSON
       ]
     }
   }
+
+JSON API
+--------
+
+This takes the example from the `JSON API page <http://jsonapi.org/>`_. There are several ways to do this in Verbose, so below are a couple of different examples.
+
+This example lets the templated links map its parameters to specific properties in the document.
+
+::
+
+  {
+    "verbose": {
+      "version": "1.0",
+      "properties": {
+        "id": 1,
+        "title": "Rails is Omakase",
+        "author_id": "9",
+        "comment_ids": [ "5", "12", "17", "20" ]
+      },
+      "templatedLinks": [
+        {
+          "classes": [ "author", "people" ],
+          "hreft": "http://example.com/people/{author_id}"
+          "uriParams": [
+            {
+              "name": "author_id",
+              "mapsTo": [ "#/properties!author_id" ]
+            }
+          ]
+        },
+        {
+          "classes": [ "comments" ],
+          "hreft": "http://example.com/comments/{comment_id}",
+          "uriParams": [
+            {
+              "name": "comment_id",
+              "mapsTo": [ "#/properties!comment_ids" ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+This example allows for mapping the properties themselves to templated links through the semantics.
+
+::
+
+  {
+    "verbose": {
+      "version": "1.0",
+      "semantics": [
+        { "name": "author_id", "mapsTo": [ "#/templatedLinks.author/uriParams!name=author_id" ] },
+        { "name": "comment_ids", "type": "array", "mapsTo": [ "#/templatedLinks.comments/uriParams!name=comment_id" ] }
+      ],
+      "properties": {
+        "id": 1,
+        "title": "Rails is Omakase",
+        "author_id": "9",
+        "comment_ids": [ "5", "12", "17", "20" ]
+      },
+      "templatedLinks": [
+        {
+          "classes": [ "author", "people" ],
+          "hreft": "http://example.com/people/{author_id}"
+          "uriParams": [ { "name": "author_id" } ]
+        },
+        {
+          "classes": [ "comments" ],
+          "hreft": "http://example.com/comments/{comment_id}",
+          "uriParams": [ { "name": "comment_id" } ]
+        }
+      ]
+    }
+  }
