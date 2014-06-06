@@ -189,59 +189,119 @@ Collection+JSON
 
 ::
 
-  {
-    "verbose": {
-      "version": "1.0",
-      "classes": [ "customers" ],
+  { 
+    "verbose" : {
+      "version" : "1.0",
       "rels": [ "collection" ],
-      "href": "/customers",
-      "availableMethods": [ "GET", "POST" ],
-      "properties": {
-        "total_customers": 45
-      },
-      "queries": [
+      "href" : "http://example.org/friends/",
+      "links" : [
         {
-          "rels": [ "search" ],
-          "href": "/customers",
-          "queryParams": [
-            { "name": "first_name", "type": "string", "label": "First Name" },
-            { "name": "last_name", "type": "string", "label": "Last Name" }
+          "rels" : [ "feed"] ,
+          "href" : "http://example.org/friends/rss"
+        }
+      ],
+      "includes" : [
+        {
+          "rels": [ "item" ],
+          "href" : "http://example.org/friends/jdoe",
+          "semantics" : [
+            {"name" : "full-name", "label" : "Full Name"},
+            {"name" : "email", "label" : "Email"}
+          ],
+          "properties": {
+            "full-name": "J. Doe",
+            "email": "jdoe@example.org"
+          },
+          "links" : [
+            {
+              "rels" : [ "blog" ], 
+              "href" : "http://examples.org/blogs/jdoe",
+              "label" : "Blog"
+            },
+            {
+              "rels" : [ "avatar" ],
+              "href" : "http://examples.org/images/jdoe",
+              "label" : "Avatar",
+              "embedAs" : "image"
+            }
+          ]
+        },
+        {
+          "rels": [ "item" ],
+          "href" : "http://example.org/friends/msmith",
+          "semantics" : [
+            {"name" : "full-name", "label" : "Full Name"},
+            {"name" : "email", "label" : "Email"}
+          ],
+          "properties": {
+            "full-name": "M. Smith",
+            "email": "msmith@example.org"
+          },
+          "links" : [
+            {
+              "rels" : [ "blog" ], 
+              "href" : "http://examples.org/blogs/msmith",
+              "label" : "Blog"
+            },
+            {
+              "rels" : [ "avatar" ],
+              "href" : "http://examples.org/images/msmith",
+              "label" : "Avatar",
+              "embedAs" : "image"
+            }
+          ]
+        },
+        {
+          "rels": [ "item" ],
+          "href" : "http://example.org/friends/rwilliams",
+          "semantics" : [
+            {"name" : "full-name", "label" : "Full Name"},
+            {"name" : "email", "label" : "Email"}
+          ],
+          "properties": {
+            "full-name": "R. Williams",
+            "email": "rwilliams@example.org"
+          },
+          "links" : [
+            {
+              "rels" : [ "blog" ], 
+              "href" : "http://examples.org/blogs/rwilliams",
+              "label" : "Blog"
+            },
+            {
+              "rels" : [ "avatar" ],
+              "href" : "http://examples.org/images/rwilliams",
+              "label" : "Avatar",
+              "embedAs" : "image"
+            }
           ]
         }
       ],
-      "templates": [
+      "queries" : [
         {
-          "forEach": [ "#", "#/includes.customer" ],
-          "mediaTypes": [ "application/x-www-form-urlencoded" ],
-          "fields": [
-            { "name": "first_name", "type": "string", "label": "First Name" },
-            { "name": "last_name", "type": "string", "label": "Last Name" }
+          "rels" : [ "search" ],
+          "href" : "http://example.org/friends/search",
+          "label" : "Search",
+          "fields" : [
+            {
+              "name" : "search",
+              "defaultValue" : ""
+            }
           ]
         }
-      ], 
-      "includes": [
+      ],
+      "templates" : [
         {
-          "classes": [ "customer" ],
-          "href": "/customers/1",
-          "availableMethods": [ "GET", "PUT" ],
-          "rels": [ "item" ],
-          "properties": {
-            "first_name": "John",
-            "last_name": "Doe"
-          }
-        },
-        {
-          "classes": [ "customer" ],
-          "href": "/customers/2",
-          "availableMethods": [ "GET", "PUT" ],
-          "rels": [ "item" ],
-          "properties": {
-            "first_name": "Jane",
-            "last_name": "Doe"
-          }
+          "forEach": [ "#", "#/includes@item" ],
+          "fields" : [
+            { "name" : "full-name", "defaultValue" : "", "label" : "Full Name" },
+            { "name" : "email", "defaultValue" : "", "label" : "Email" },
+            { "name" : "blog", "defaultValue" : "", "label" : "Blog" },
+            { "name" : "avatar", "defaultValue" : "", "label" : "Avatar" }
+          ]
         }
-      ]
-    }
+      }
+    } 
   }
 
 JSON API
