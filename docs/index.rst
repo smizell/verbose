@@ -17,6 +17,11 @@ Content
    specification
    examples
    schema
+   
+Issues, Questions, Comments
+---------------------------
+
+If you find any issues, have any questions, or would like to comment on any aspect of the documentation or format design, please so on the `Github issue page <https://github.com/smizell/verbose/issues>`_.
 
 Contributing
 ------------
