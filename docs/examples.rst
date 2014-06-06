@@ -1,73 +1,8 @@
 Examples
 ========
 
-CRUD API
---------
-
-::
-
-  {
-    "verbose": {
-      "version": "1.0",
-      "classes": [ "customers" ],
-      "rels": [ "collection" ],
-      "href": "/customers",
-      
-      "availableMethods": [ "GET", "POST" ],
-      
-      "properties": {
-        "total_customers": 45
-      },
-      
-      "queries": [
-        {
-          "rels": [ "search" ],
-          "href": "/customers",
-          "queryParams": [
-            { "name": "first_name", "type": "string", "label": "First Name" },
-            { "name": "last_name", "type": "string", "label": "Last Name" }
-          ]
-        }
-      ],
-      
-      "templates": [
-        {
-          "forEach": [ "#", "#/includes.customer" ],
-          "mediaTypes": [ "application/x-www-form-urlencoded" ],
-          "fields": [
-            { "name": "first_name", "type": "string", "label": "First Name" },
-            { "name": "last_name", "type": "string", "label": "Last Name" }
-          ]
-        }
-      ], 
-      
-      "includes": [
-        {
-          "classes": [ "customer" ],
-          "href": "/customers/1",
-          "availableMethods": [ "GET", "PUT" ],
-          "rels": [ "item" ],
-          "properties": {
-            "first_name": "John",
-            "last_name": "Doe"
-          }
-        },
-        {
-          "classes": [ "customer" ],
-          "href": "/customers/2",
-          "availableMethods": [ "GET", "PUT" ],
-          "rels": [ "item" ],
-          "properties": {
-            "first_name": "Jane",
-            "last_name": "Doe"
-          }
-        }
-      ]
-    }
-  }
-
-Link Relations
---------------
+Link Relation Example
+---------------------
 
 Link Relation
 #############
@@ -77,6 +12,7 @@ Link Relation
   {
     "verbose": {
       "version": "1.0",
+      "href": "http://example.com/rels/customers",
       
       "title": "Customer Collection",
       "description": "This is a collection of customers",
@@ -109,6 +45,7 @@ Link Relation
 
       "includes": [
         {
+          "id": "customer",
           "classes": [ "customer" ],
           "rels": [ "item" ],
           "semantics": [
@@ -139,6 +76,7 @@ Resource Representation
     "verbose": {
       "version": "1.0",
       "classes": [ "customers" ],
+      "rels": [ "http://example.com/rels/customers" ],
       "href": "/customers",
 
       "properties": {
@@ -147,6 +85,7 @@ Resource Representation
       
       "includes": [
         {
+          "rels": [ "http://example.com/rels/customers#customer" ],
           "classes": [ "customer" ],
           "href": "/customers/1",
           "rels": [ "item" ],
@@ -156,6 +95,7 @@ Resource Representation
           }
         },
         {
+          "rels": [ "http://example.com/rels/customers#customer" ],
           "classes": [ "customer" ],
           "href": "/customers/2",
           "rels": [ "item" ],
@@ -298,6 +238,8 @@ Compared to Other Formats
 HAL+JSON
 ########
 
+This example is the example from the `HAL spec <http://stateless.co/hal_specification.html>`_. Because the HAL spec says you should not assume the embedded resources are full resources, I've put them in the `partials` array.
+
 ::
 
   {
@@ -389,6 +331,9 @@ HAL+JSON
 Siren
 #####
 
+This is taken from the example in the `Siren spec <https://github.com/kevinswiber/siren#example>`_. I took a little bit of liberty with this one and considered one of the embedded entities to be a partial representation.
+
+
 ::
 
   {
@@ -461,6 +406,66 @@ Siren
               "href": "http://api.x.io/customers/pj123"
             }
           ]
+        }
+      ]
+    }
+  }
+
+Collection+JSON
+---------------
+
+::
+
+  {
+    "verbose": {
+      "version": "1.0",
+      "classes": [ "customers" ],
+      "rels": [ "collection" ],
+      "href": "/customers",
+      "availableMethods": [ "GET", "POST" ],
+      "properties": {
+        "total_customers": 45
+      },
+      "queries": [
+        {
+          "rels": [ "search" ],
+          "href": "/customers",
+          "queryParams": [
+            { "name": "first_name", "type": "string", "label": "First Name" },
+            { "name": "last_name", "type": "string", "label": "Last Name" }
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "forEach": [ "#", "#/includes.customer" ],
+          "mediaTypes": [ "application/x-www-form-urlencoded" ],
+          "fields": [
+            { "name": "first_name", "type": "string", "label": "First Name" },
+            { "name": "last_name", "type": "string", "label": "Last Name" }
+          ]
+        }
+      ], 
+      "includes": [
+        {
+          "classes": [ "customer" ],
+          "href": "/customers/1",
+          "availableMethods": [ "GET", "PUT" ],
+          "rels": [ "item" ],
+          "properties": {
+            "first_name": "John",
+            "last_name": "Doe"
+          }
+        },
+        {
+          "classes": [ "customer" ],
+          "href": "/customers/2",
+          "availableMethods": [ "GET", "PUT" ],
+          "rels": [ "item" ],
+          "properties": {
+            "first_name": "Jane",
+            "last_name": "Doe"
+          }
         }
       ]
     }

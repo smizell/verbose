@@ -59,6 +59,7 @@ Provided here is a JSON schema for validating Verbose documents.::
             "type": "array",
             "items": { "$ref": "#/definitions/resource" }
           },
+          "errors": { "$ref": "#/definitions/resource" }
         }
       }
     }

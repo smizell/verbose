@@ -9,13 +9,24 @@ Specification
 
 **Proposed Registration**: ``application/vnd.verbose+json``
 
-Glossary of Properties
-----------------------
+The document outlines the Verbose hypermedia format.
+
+.. note ::
+  This is currently in active development. There may be parts of this change before it is ready for use.
+
+.. note ::
+  The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+  NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
+  "OPTIONAL" in this document are to be interpreted as described in
+  RFC 2119.
+
+Definitions
+-----------
 
 Verbose provides a set of common properties for every supported item along with providing properties that are shared between specific items. Because of this, these properties are defined here to allow for them to be used throughout this document.
 
-Common
-######
+Common Properties
+#################
 
 These common properties are available for any item in the document, from links to resources.
 
@@ -37,7 +48,7 @@ These common properties are available for any item in the document, from links t
 Shared
 ######
 
-These properties are reused by several items below.
+These properties are reused by several items but are not common to all. 
 
 ``rels``
   An ``array`` of link relations for an item.
@@ -74,6 +85,27 @@ These properties are reused by several items below.
 
 ``hreft``
   Templated URL of the item
+
+``forEach``
+  An ``array`` of Verbose Paths that specify for what item a template can be used. These templates can be for links, queries, actions, or resource templates.
+
+  If the Verbose Path string specified references more than one item in the document, it means that template can be used for each of those items.
+
+  ::
+
+    {
+      "verbose": {
+        "href": "/customers",
+        "availableMethods": [ "GET", "POST" ],
+        "templates": [
+          {
+            "forEach": [ "#", "#/includes@item" ]
+          }
+        ]
+      }
+    }
+
+  In this example above, the ``forEach`` array contains a reference to ``#``, which references the root resource of the document, and ``#/includes@item``, which references any included items with a link relation of ``item``. Please see the Verbose Path section to see how it is used. 
 
 Prefixes
 --------
@@ -167,7 +199,7 @@ A ``field`` object provides the following properties:
   Human-readable label for the field
 
 ``mapsTo``
-  An ``array`` of Verbose Path strings
+  A Verbose Path string (see Verbose Path section for details on how this is used)
 
 Links
 -----
@@ -452,6 +484,13 @@ In this example, there are both URI parameters and query parameters for building
 Resource Template
 -----------------
 
+
+``mediaTypes``
+  Defines the media types for the request. Can be an array of media types.
+
+``fields``
+  An ``array`` of field objects.
+
 Example
 #######
 
@@ -502,18 +541,103 @@ This is an example of a resource that provides templates for working with this p
     }
   }
 
+Templates can also use JSON Schema to define how a request should be formed.
+
+::
+
+  {
+    "verbose": {
+      "forEach": [ "#", "#/includes@item" ],
+      "templates": [
+        {
+          "mediaTypes": [ "application/json" ],
+          jsonSchema: {
+            properties: {
+              "first_name": { "type": "string" },
+              "last_name": { "type": "string" }
+            }
+          }
+        }
+      ],
+      "includes": [
+        {
+          "rels": [ "item" ],
+          "href": "/customers/1",
+          "properties": {
+            "first_name": "John",
+            "last_name": "Doe"
+          }
+        },
+        {
+          "rels": [ "item" ],
+          "href": "/customers/2",
+          "properties": {
+            "first_name": "Jane",
+            "last_name": "Doe"
+          }
+        }
+      ]
+    }
+  }
+
 Embedded Resources
 ------------------
 
 Partials
 ########
 
-Partial resources are considered to be a partial representation of the embedded resource. If the full resource is desired, it can be requested if a ``self`` link is available.
+Partial resources are considered to be a partial representation of the embedded resource. If the entire resource for the partial is desired, the semantics of the API can specificy how this is done.
 
 Includes
 ########
 
 Included resources are considered to be full representations.
+
+Resource
+--------
+
+A Verbose Resource is an ``object`` for defining everything dealing with a particular resource.
+
+``href``
+  Link to the resource
+
+``semantics``
+  An ``array`` of Semantic objects
+
+``properties``
+  A Properties object
+
+``links``
+  An ``array`` of Link objects
+
+``actions``
+  An ``array`` of Action objects
+
+``queries``
+  An ``array`` of Query objects
+
+``templatedLinks``
+  An ``array`` of Templated Link objects
+
+``templatedActions``
+  An ``array`` of Templated Action objects
+
+``templatedQueries``
+  An ``array`` of Templated Query objects
+
+``templates``
+  An ``array`` of Template objects
+
+``partials``
+  An ``array`` of partial Resource objects
+
+``includes``
+  An ``array`` of full Resource objects
+
+``errors``
+  An Error object
+
+See the Examples page for examples of a resource
 
 Errors
 ------
