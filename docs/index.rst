@@ -26,4 +26,4 @@ If you find any issues, have any questions, or would like to comment on any aspe
 Contributing
 ------------
 
-The source for this documentation can be found on Github at https://github.com/smizell/verbose. To contribute, please open a pull request. If you have any questions or issues, please open a ticket on Github. Thanks for checking out Verbose!
+The source for this documentation can be found on Github at https://github.com/smizell/verbose. To contribute, please open a pull request. Thanks for checking out Verbose!
