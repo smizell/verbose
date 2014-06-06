@@ -20,6 +20,8 @@ The document outlines the Verbose hypermedia format.
   "OPTIONAL" in this document are to be interpreted as described in
   RFC 2119.
 
+.. _definitions:
+
 Definitions
 -----------
 
@@ -87,7 +89,7 @@ These properties are reused by several items but are not common to all.
   Templated URL of the item
 
 ``forEach``
-  An ``array`` of Verbose Paths that specify for what item a template can be used. These templates can be for links, queries, actions, or resource templates.
+  An ``array`` of :ref:`Verbose Paths <verbose_path>` that specify for what item a template can be used. These templates can be for links, queries, actions, or resource templates.
 
   If the Verbose Path string specified references more than one item in the document, it means that template can be used for each of those items.
 
@@ -106,6 +108,8 @@ These properties are reused by several items but are not common to all.
     }
 
   In this example above, the ``forEach`` array contains a reference to ``#``, which references the root resource of the document, and ``#/includes@item``, which references any included items with a link relation of ``item``. Please see the Verbose Path section to see how it is used. 
+
+.. _prefixes:
 
 Prefixes
 --------
@@ -135,6 +139,8 @@ Example
     }
   }
 
+.. _namespace:
+
 Namespace
 ---------
 
@@ -148,6 +154,8 @@ All Verbose documents MUST have a ``verbose`` namespace.
 
 Properties
 ----------
+
+.. _semantics:
 
 Semantics
 #########
@@ -165,7 +173,9 @@ Semantics
   Human-readable label for a property
 
 ``mapsTo``
-  An ``array` of Verbose Path strings (see Verbose Path section for details on how this is used)
+  An ``array`` of Verbose Path strings (see :ref:`Verbose Path <verbose_path>` section for details on how this is used)
+
+.. _properties:
 
 Properties
 ##########
@@ -194,6 +204,8 @@ Below is an example showing a resource that has ``properties`` and ``semantics``
       }
     }
   }
+
+.. _field:
 
 Field
 -----
@@ -225,7 +237,9 @@ A ``field`` object provides the following properties:
   Human-readable label for the field
 
 ``mapsTo``
-  An ``array` of Verbose Path strings (see Verbose Path section for details on how this is used)
+  An ``array`` of Verbose Path strings (see :ref:`Verbose Path <verbose_path>` section for details on how this is used)
+
+.. _links:
 
 Links
 -----
@@ -264,6 +278,8 @@ The link below provides a link to a customer resource.
       ]
     }
   }
+
+.. _actions:
 
 Actions
 -------
@@ -319,6 +335,8 @@ This action can be used to create a customer.
     }
   }
 
+.. _queries:
+
 Queries
 -------
 
@@ -365,6 +383,8 @@ This query can be used for searching customers. It has two available query param
     }
   }
 
+.. _templated_links:
+
 Templated Links
 ---------------
 
@@ -406,6 +426,8 @@ In this case, there is one URI parameters call ``id``, which is a number.
       ]
     }
   }
+
+.. _templated_actions:
 
 Templated Actions
 -----------------
@@ -460,6 +482,8 @@ In this example, there are both URI parameters and body parameters for building 
     }
   }
 
+.. _templated_queries:
+
 Templated Queries
 -----------------
 
@@ -506,10 +530,10 @@ In this example, there are both URI parameters and query parameters for building
     }
   }
 
+.. _resource_template:
 
 Resource Template
 -----------------
-
 
 ``mediaTypes``
   Defines the media types for the request. Can be an array of media types.
@@ -606,6 +630,8 @@ Templates can also use JSON Schema to define how a request should be formed.
     }
   }
 
+.. _embedded_resources:
+
 Embedded Resources
 ------------------
 
@@ -619,6 +645,8 @@ Includes
 
 Included resources are considered to be full representations.
 
+.. _resource:
+
 Resource
 --------
 
@@ -628,42 +656,44 @@ A Verbose Resource is an ``object`` for defining everything dealing with a parti
   Link to the resource
 
 ``semantics``
-  An ``array`` of Semantic objects
+  An ``array`` of :ref:`Semantic objects <semantics>`
 
 ``properties``
-  A Properties object
+  A :ref:`Properties object <properties>`
 
 ``links``
-  An ``array`` of Link objects
+  An ``array`` of :ref:`Link objects <links>`
 
 ``actions``
-  An ``array`` of Action objects
+  An ``array`` of :ref:`Action objects <actions>`
 
 ``queries``
-  An ``array`` of Query objects
+  An ``array`` of :ref:`Query objects <queries>`
 
 ``templatedLinks``
-  An ``array`` of Templated Link objects
+  An ``array`` of :ref:`Templated Link objects <templated_links>`
 
 ``templatedActions``
-  An ``array`` of Templated Action objects
+  An ``array`` of :ref:`Templated Action objects <templated_actions>`
 
 ``templatedQueries``
-  An ``array`` of Templated Query objects
+  An ``array`` of :ref:`Templated Query objects <templated_queries>`
 
 ``templates``
-  An ``array`` of Template objects
+  An ``array`` of :ref:`Resource Template objects <resource_template>`
 
 ``partials``
-  An ``array`` of partial Resource objects
+  An ``array`` of partial :ref:`Resource objects <resource>`
 
 ``includes``
-  An ``array`` of full Resource objects
+  An ``array`` of full :ref:`Resource objects <resource>`
 
 ``errors``
-  An Error object
+  An :ref:`Error object <errors>`
 
-See the Examples page for examples of a resource
+See the :ref:`Examples <examples>` page for examples of a resource
+
+.. _errors:
 
 Errors
 ------
@@ -682,6 +712,8 @@ The ``errors`` property is a Verbose object that can be used specifically for er
       }
     }
   }
+
+.. _verbose_path:
 
 Verbose Path
 ------------

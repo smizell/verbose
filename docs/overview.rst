@@ -1,6 +1,8 @@
 Overview
 ========
 
+.. _description:
+
 Description
 -----------
 
@@ -13,6 +15,8 @@ Verbose is a general-purpose, multi-use hypermedia format that can be used to bu
 * Object Model
 
 It can be as minimal or verbose as necessary to fit the situation. Because of it's design, it should be able to cover almost anything that other hypermedia formats can cover.
+
+.. _design:
 
 Design
 ------
