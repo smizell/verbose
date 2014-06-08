@@ -17,7 +17,7 @@ This example is the example from the `HAL spec <http://stateless.co/hal_specific
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
 
       "prefixes": [
         {
@@ -191,7 +191,7 @@ Collection+JSON
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "classes": [ "customers" ],
       "rels": [ "collection" ],
       "href": "/customers",
@@ -255,7 +255,7 @@ This example lets the templated links map its parameters to specific properties 
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "properties": {
         "id": 1,
         "title": "Rails is Omakase",
@@ -299,7 +299,7 @@ Link Relation
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "href": "http://example.com/rels/customers",
       
       "title": "Customer Collection",
@@ -362,7 +362,7 @@ Resource Representation
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "classes": [ "customers" ],
       "rels": [ "http://example.com/rels/customers" ],
       "href": "/customers",
@@ -406,7 +406,7 @@ Profile
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
 
       "title": "Collection of Customers",
       "description": "A collection of customers",

@@ -129,7 +129,7 @@ Example
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "prefixes": [
         {
           "prefix": "schema",
@@ -704,7 +704,7 @@ The ``errors`` property is a Verbose object that can be used specifically for er
 
   {
     "versbose": {
-      "version": "1.0",
+      "version": "0.2",
       "errors": {
         "properties": {
           "message": "There was an error when creating this resource"
@@ -736,7 +736,7 @@ Using a ``#`` alone specifies the root resource.
   
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "href": "/customers",
       "availableMethods": [ "GET", "POST" ],
       "templates": [
@@ -769,7 +769,7 @@ This example uses a path to point to an ID in the document. IDs MUST be unique f
   
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "href": "/customers",
       "availableMethods": [ "GET", "POST" ],
       "templates": [
@@ -811,7 +811,7 @@ This example in the ``forEach`` section specifies the template can be used for e
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "href": "/customers",
       "availableMethods": [ "GET", "POST" ],
       "templates": [
@@ -853,7 +853,7 @@ This example says the template can be used for each include that has ``item`` fo
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "href": "/customers",
       "availableMethods": [ "GET", "POST" ],
       "templates": [
@@ -898,7 +898,7 @@ Using the slash, the path can specify nested items. The path below in the ``forE
 
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "href": "/",
       "templates": [
         {
@@ -945,7 +945,7 @@ The ``!`` can be used to specify properties of an item. In the example below, ``
   
   {
     "verbose": {
-      "version": "1.0",
+      "version": "0.2",
       "href": "/",
       "properties": {
         "first_name": "John",
