@@ -17,20 +17,17 @@ This example is the example from the `HAL spec <http://stateless.co/hal_specific
 
   {
     "verbose": {
-      "version": "0.2",
-
+      "version": "0.3",
       "prefixes": [
         {
           "prefix": "ea",
           "href": "http://example.com/docs/rels/"
         }
       ],
-
       "properties": {
         "currentlyProcessing": 14,
         "shippedToday": 20
       },
-
       "links": [
         {
           "rels": [ "self" ],
@@ -51,7 +48,6 @@ This example is the example from the `HAL spec <http://stateless.co/hal_specific
           "label": "Kate"
         }
       ],
-
       "partials": [
         {
           "rels": [ "ea:order" ],
@@ -111,7 +107,7 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
 
   {
     "verbose": {
-      "classes": [ "order" ],
+      "typesOf": [ "order" ],
       "properties": { 
           "orderNumber": 42, 
           "itemCount": 3,
@@ -119,7 +115,7 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
       },
       "actions": [
         {
-          "classes": [ "add-item" ],
+          "name": "add-item",
           "title": "Add Item",
           "method": "POST",
           "href": "http://api.x.io/orders/42/items",
@@ -159,15 +155,16 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
         }
       ],
       "partials": [
-        { 
-          "classes": [ "items", "collection" ], 
-          "rels": [ "http://x.io/rels/order-items" ], 
-          "href": "http://api.x.io/orders/42/items"
-        }
+        
       ],
       "includes": [
+        { 
+          "typesOf": [ "items", "collection" ], 
+          "rels": [ "http://x.io/rels/order-items" ], 
+          "href": "http://api.x.io/orders/42/items"
+        },
         {
-          "classes": [ "info", "customer" ],
+          "typesOf": [ "info", "customer" ],
           "rels": [ "http://x.io/rels/customer" ], 
           "properties": { 
             "customerId": "pj123",
@@ -191,7 +188,7 @@ Collection+JSON
 
   {
     "verbose" : {
-      "version" : "0.2",
+      "version" : "0.3",
       "rels": [ "collection" ],
       "href" : "http://example.org/friends/",
       "links" : [
@@ -315,7 +312,7 @@ This example lets the templated links map its parameters to specific properties 
 
   {
     "verbose": {
-      "version": "0.2",
+      "version": "0.3",
       "properties": {
         "id": 1,
         "title": "Rails is Omakase",
@@ -324,7 +321,7 @@ This example lets the templated links map its parameters to specific properties 
       },
       "templatedLinks": [
         {
-          "classes": [ "author", "people" ],
+          "typesOf": [ "author", "people" ],
           "hreft": "http://example.com/people/{author_id}",
           "uriParams": [
             {
@@ -334,7 +331,7 @@ This example lets the templated links map its parameters to specific properties 
           ]
         },
         {
-          "classes": [ "comments" ],
+          "typesOf": [ "comments" ],
           "hreft": "http://example.com/comments/{comment_id}",
           "uriParams": [
             {
@@ -359,13 +356,13 @@ Link Relation
 
   {
     "verbose": {
-      "version": "0.2",
+      "version": "0.3",
       "href": "http://example.com/rels/customers",
       
       "title": "Customer Collection",
       "description": "This is a collection of customers",
       
-      "classes": [ "customers" ],
+      "typesOf": [ "customers" ],
 
       "availableMethods": [ "GET", "POST" ],
       
@@ -394,7 +391,7 @@ Link Relation
       "includes": [
         {
           "id": "customer",
-          "classes": [ "customer" ],
+          "typesOf": [ "customer" ],
           "rels": [ "item" ],
           "semantics": [
             {
@@ -422,8 +419,8 @@ Resource Representation
 
   {
     "verbose": {
-      "version": "0.2",
-      "classes": [ "customers" ],
+      "version": "0.3",
+      "typesOf": [ "customers" ],
       "rels": [ "http://example.com/rels/customers" ],
       "href": "/customers",
 
@@ -434,7 +431,7 @@ Resource Representation
       "includes": [
         {
           "rels": [ "http://example.com/rels/customers#customer" ],
-          "classes": [ "customer" ],
+          "typesOf": [ "customer" ],
           "href": "/customers/1",
           "rels": [ "item" ],
           "properties": {
@@ -444,7 +441,7 @@ Resource Representation
         },
         {
           "rels": [ "http://example.com/rels/customers#customer" ],
-          "classes": [ "customer" ],
+          "typesOf": [ "customer" ],
           "href": "/customers/2",
           "rels": [ "item" ],
           "properties": {
@@ -466,7 +463,7 @@ Profile
 
   {
     "verbose": {
-      "version": "0.2",
+      "version": "0.3",
 
       "title": "Collection of Customers",
       "description": "A collection of customers",
@@ -519,7 +516,7 @@ Resource Representation
 
   {
     "verbose": {
-      "version": "0.1",
+      "version": "0.3",
 
       "id": "customers",
       "rels": [ "collection" ],
@@ -553,7 +550,7 @@ Resource Representation
       
       "includes": [
         {
-          "classes": [ "customer" ],
+          "typesOf": [ "customer" ],
           "href": "/customer/1",
           "rels": [ "item" ],
           "typeOf": "http://example.com/customers#customer", 
@@ -565,7 +562,7 @@ Resource Representation
           }
         },
         {
-          "classes": [ "customer" ],
+          "typesOf": [ "customer" ],
           "href": "/customer/2",
           "rels": [ "item" ],
           "typeOf": "http://example.com/customers#customer", 
