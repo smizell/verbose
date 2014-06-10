@@ -47,7 +47,7 @@ These properties define identifying information for items throughout a document.
 ``description``
   A human-readable description for an item. It is a ``string``.
 
-``typeOf``
+``typesOf``
   A way to specify what type of item an item is. Useful when specifying Schema.org values or linking to profiles.
 
 Hypermedia
@@ -208,7 +208,7 @@ The ``semantics`` array is an array of Semantic objects. It supports the followi
 2. ``name`` - Name of property being defined
 3. ``type`` - Type of the property
 4. ``format`` - HTML format of the property
-5. ``typeOf`` - For pointing to another semantic or schema for the property
+5. ``typesOf`` - For pointing to another semantic or schema for the property
 6. ``mapsTo`` - Property to which the semantic point
 
 Example
@@ -276,6 +276,7 @@ The ``links`` property is an array of Link objects. It supports the following pr
 5. ``embedAs`` - Ways to inform the client how an item should be transcluded
 6. ``href`` - URL for the link
 7. ``mapsTo`` - An array of Verbose Paths to map a link to another property
+8. ``typesOf`` - For pointing to another semantic or schema for the link
 
 Example
 #######
@@ -322,6 +323,8 @@ The ``actions`` property is an array of Action objects. It supports the followin
 6. ``method`` - HTTP method for the action
 7. ``bodyParams`` - An array of available body parameters
 8. ``href`` - URL for the action
+9. ``mapsTo`` - An array of Verbose Paths to map a action to another property
+10. ``typesOf`` - For pointing to another semantic or schema for the action
 
 Example
 #######
@@ -374,6 +377,8 @@ The ``queries`` property is an array of Query objects. It supports the following
 5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
 6. ``queryParams`` - An array of available query parameters
 7. ``href`` - URL for the query
+8. ``mapsTo`` - An array of Verbose Paths to map a query to another property
+9. ``typesOf`` - For pointing to another semantic or schema for the query
 
 Example
 #######
@@ -422,6 +427,8 @@ The ``templatedLinks`` property is an array of Templated Link objects. It suppor
 5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
 6. ``uriParams`` - An array of available parameters for the URI template
 7. ``hreft`` - URL template
+8. ``mapsTo`` - An array of Verbose Paths to map a link to another property
+9. ``typesOf`` - For pointing to another semantic or schema for the link
 
 Example
 #######
@@ -470,6 +477,8 @@ The ``templatedActions`` property is an array of Templated Action objects. It su
 7. ``bodyParams`` - An array of available body parameters
 8. ``uriParams`` - An array of available parameters for the URI template
 9. ``hreft`` - URL template
+10. ``mapsTo`` - An array of Verbose Paths to map a action to another property
+11. ``typesOf`` - For pointing to another semantic or schema for the action
 
 Example
 #######
@@ -526,6 +535,8 @@ The ``templatedQueries`` property is an array of Templated Query objects. It sup
 6. ``queryParams`` - An array of available query parameters
 7. ``uriParams`` - An array of available parameters for the URI template
 8. ``hreft`` - URL template
+9. ``mapsTo`` - An array of Verbose Paths to map a query to another property
+10. ``typesOf`` - For pointing to another semantic or schema for the query
 
 Example
 #######
