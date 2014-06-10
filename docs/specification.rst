@@ -242,8 +242,10 @@ Field
 
 A Field object supports the following properites listed in the :ref:`Definitions <definitions>` list:
 
-1. ``type`` - Type of the field
-2. ``format`` - Format of the field (HTML inputs)
+1. ``id`` - Unique identifier for field
+2. ``name`` - Name of field
+3. ``type`` - Type of the field
+4. ``format`` - Format of the field (HTML inputs)
 
 A ``field`` object also provides the following properties:
 
@@ -317,7 +319,7 @@ The ``actions`` property is an array of Action objects. It supports the followin
 
 1. ``id`` - Unique identifier for action
 2. ``name`` - Name of action
-3. ``rels`` - Link relation of link
+3. ``rels`` - Link relation of action
 4. ``responseTypes`` - Types with which the server may respond
 5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
 6. ``method`` - HTTP method for the action
@@ -371,7 +373,7 @@ Queries are safe GET requests that provide a way for specifying query parameters
 The ``queries`` property is an array of Query objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
 
 1. ``id`` - Unique identifier for query
-2. ``name`` - Name of action
+2. ``name`` - Name of query
 3. ``rels`` - Link relation of query
 4. ``responseTypes`` - Types with which the server may respond
 5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
@@ -420,9 +422,9 @@ Templated Links
 
 The ``templatedLinks`` property is an array of Templated Link objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
 
-1. ``id`` - Unique identifier for query
-2. ``name`` - Name of action
-3. ``rels`` - Link relation of query
+1. ``id`` - Unique identifier for link
+2. ``name`` - Name of link
+3. ``rels`` - Link relation of link
 4. ``responseTypes`` - Types with which the server may respond
 5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
 6. ``uriParams`` - An array of available parameters for the URI template
@@ -470,7 +472,7 @@ The ``templatedActions`` property is an array of Templated Action objects. It su
 
 1. ``id`` - Unique identifier for action
 2. ``name`` - Name of action
-3. ``rels`` - Link relation of link
+3. ``rels`` - Link relation of action
 4. ``responseTypes`` - Types with which the server may respond
 5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
 6. ``method`` - HTTP method for the action
@@ -528,7 +530,7 @@ Templated Queries
 The ``templatedQueries`` property is an array of Templated Query objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
 
 1. ``id`` - Unique identifier for query
-2. ``name`` - Name of action
+2. ``name`` - Name of query
 3. ``rels`` - Link relation of query
 4. ``responseTypes`` - Types with which the server may respond
 5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
