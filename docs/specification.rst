@@ -115,7 +115,7 @@ These properties are used to define the type of field and semantics.
 ``format``
   HTML input types. This is a ``string``.
 
-Extendability
+Extensibility
 #############
 
 Each of these properties use :ref:`Verbose Path <verbose_path>` to reference items from the same document or other documents. Please see the documentation on this to understand how Verbose Path works.
