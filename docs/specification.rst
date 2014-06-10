@@ -249,9 +249,6 @@ A Field object supports the following properites listed in the :ref:`Definitions
 
 A ``field`` object also provides the following properties:
 
-``name``
-  The name of the field. This is a ``string``.
-
 ``defaultValue``
   The optional default value of the field. This is a ``string``.
 
