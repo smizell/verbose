@@ -326,7 +326,7 @@ This example lets the templated links map its parameters to specific properties 
           "uriParams": [
             {
               "name": "author_id",
-              "mapsTo": [ "#/properties!author_id" ]
+              "mapsTo": [ "#/properties.author_id" ]
             }
           ]
         },
@@ -336,7 +336,7 @@ This example lets the templated links map its parameters to specific properties 
           "uriParams": [
             {
               "name": "comment_id",
-              "mapsTo": [ "#/properties!comment_ids" ]
+              "mapsTo": [ "#/properties.comment_ids[]" ]
             }
           ]
         }
@@ -358,14 +358,10 @@ Link Relation
     "verbose": {
       "version": "0.3",
       "href": "http://example.com/rels/customers",
-      
       "title": "Customer Collection",
       "description": "This is a collection of customers",
-      
       "typesOf": [ "customers" ],
-
       "availableMethods": [ "GET", "POST" ],
-      
       "semantics": [
         { 
           "title": "Total Customers",
@@ -373,13 +369,12 @@ Link Relation
           "name": "total_customers",
           "type": "number"
         }
-      ],
-      
+      ],  
       "templates": [
         {
           "title": "Customer Template",
           "description": "Template for appending new customers to this collection",
-          "forEach": [ "#", "#/includes.customer" ],
+          "forEach": [ "#", "#customer" ],
           "mediaTypes": [ "application/x-www-form-urlencoded" ],
           "fields": [
             { "name": "first_name", "type": "string", "label": "First Name" },
@@ -387,7 +382,6 @@ Link Relation
           ]
         }
       ],
-
       "includes": [
         {
           "id": "customer",
@@ -423,11 +417,9 @@ Resource Representation
       "typesOf": [ "customers" ],
       "rels": [ "http://example.com/rels/customers" ],
       "href": "/customers",
-
       "properties": {
         "total_customers": 45
       },
-      
       "includes": [
         {
           "rels": [ "http://example.com/rels/customers#customer" ],
