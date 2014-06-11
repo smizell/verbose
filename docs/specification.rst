@@ -48,7 +48,7 @@ These properties define identifying information for items throughout a document.
   A human-readable description for an item. It is a ``string``.
 
 ``typesOf``
-  A way to specify what type of item an item is. Useful when specifying Schema.org values or linking to profiles.
+  A way to specify what type of item an item is. Useful when specifying Schema.org values or linking to profiles. It is a ``string``.
 
 Hypermedia
 ##########
@@ -65,7 +65,7 @@ These properties are used to define hypermedia information and hints related to 
   5. application
 
 ``method``
-  For specifying an HTTP method
+  For specifying an HTTP method. This is a ``string``.
 
 ``rels``
   An ``array`` of link relations for an item.
@@ -93,10 +93,10 @@ URLs
 These properties are used to define the URL or templated URL.
 
 ``href``
-  URL of the item
+  URL of the item. This is a ``string``.
 
 ``hreft``
-  Templated URL of the item
+  Templated URL of the item. This is a ``string``.
 
 Types
 #####
@@ -111,6 +111,8 @@ These properties are used to define the type of field and semantics.
   3. boolean
   4. array
   5. object
+
+  This is a ``string``.
 
 ``format``
   HTML input types. This is a ``string``.
@@ -442,7 +444,7 @@ In this case, there is one URI parameters call ``id``, which is a number.
     "verbose": {
       "templatedLinks": [
         {
-          "classes": [ "customer" ],
+          "name": "customer",
           "rels": [ "item", "http://example.com/rels/customer"],
           "responseTypes": [
             "application/json",
@@ -657,7 +659,12 @@ Included resources are just to be considered as included resources and MAY be fu
 Resource
 --------
 
-A Verbose Resource is an ``object`` for defining everything dealing with a particular resource.
+A Verbose Resource is an ``object`` for defining everything dealing with a particular resource. It uses these properties from the definition list.
+
+1. ``id`` - Unique identifier for resource
+2. ``name`` - Name of resource
+
+It also supports.
 
 ``href``
   Link to the resource
@@ -747,6 +754,33 @@ The ``#`` alone SHOULD be considered the path to the root resource of a Verbose 
             { "name": "first_name" },
             { "name": "last_name" }
           ]
+        }
+      ]
+    }
+  }
+
+ID
+##
+
+This shows the template can be used for the item where the ID is equal to ``person``.
+
+::
+
+  {
+    "verbose": {
+      "version": "0.3",
+      "templates": [
+        {
+          "forEach": [ "#person" ],
+          "fields": [
+            { "name": "first_name" },
+            { "name": "last_name" }
+          ]
+        }
+      ],
+      "includes": [
+        {
+          "id": "person",
         }
       ]
     }
@@ -851,7 +885,7 @@ The square brackets can be used to filter arrays. The example below shows the te
       ],
       "includes": [
         {
-          "name": [ "customer" ],
+          "name": "customer",
           "properties": {
             "customer": {
               "fullName": "John Doe",
