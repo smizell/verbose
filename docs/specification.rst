@@ -144,7 +144,7 @@ Each of these properties use :ref:`Verbose Path <verbose_path>` to reference ite
       }
     }
 
-  In this example above, the ``forEach`` array contains a reference to ``#``, which references the root resource of the document, and ``#/includes@item``, which references any included items with a link relation of ``item``. Please see the Verbose Path section to see how it is used. 
+  In this example above, the ``forEach`` array contains a reference to ``#``, which references the root resource of the document, and ``#/includes[rel=item]``, which references any included items with a link relation of ``item``. Please see the Verbose Path section to see how it is used. 
 
 ``mapsTo``
   An ``array`` of Verbose Path strings (see  section for details on how this is used)
@@ -602,7 +602,7 @@ This is an example of a resource that provides templates for working with this p
       "availableMethods": [ "GET", "POST" ],
       "templates": [
         {
-          "forEach": [ "#", "#/includes@item" ],
+          "forEach": [ "#", "#/includes[rel=item]" ],
           "mediaTypes": [ "application/x-www-form-urlencoded" ],
           "fields": [
             {
@@ -800,17 +800,17 @@ Properties of an object can be specified with a dot. Shown below, the semantics 
         {
           "name": "customer",
           "type": "object",
-          "mapsTo": "#/customer"
+          "mapsTo": "#/properties.customer"
         },
         {
           "name": "fullName",
           "type": "string",
-          "mapsTo": "#/customer.fullName"
+          "mapsTo": "#/properties.customer.fullName"
         },
         {
           "name": "email",
           "type": "string",
-          "mapsTo": "#/customer.email"
+          "mapsTo": "#/properties.customer.email"
         }
       ],
       "properties": {
@@ -836,17 +836,17 @@ Arrays can also be referenced.
         {
           "name": "customers",
           "type": "array",
-          "mapsTo": "#/customer"
+          "mapsTo": "#/properties.customers[]"
         },
         {
           "name": "fullName",
           "type": "string",
-          "mapsTo": "#/customers[].fullName"
+          "mapsTo": "#/properties.customers[].fullName"
         },
         {
           "name": "email",
           "type": "string",
-          "mapsTo": "#/customers[].email"
+          "mapsTo": "#/properties.customers[].email"
         }
       ],
       "properties": {
