@@ -48,7 +48,7 @@ This example is the example from the `HAL spec <http://stateless.co/hal_specific
           "label": "Kate"
         }
       ],
-      "partials": [
+      "includes": [
         {
           "rels": [ "ea:order" ],
           "properties": {
@@ -153,9 +153,6 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
           "rels": [ "next" ],
           "href": "http://api.x.io/orders/43"
         }
-      ],
-      "partials": [
-        
       ],
       "includes": [
         { 
