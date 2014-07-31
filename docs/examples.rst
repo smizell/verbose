@@ -117,7 +117,7 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
         {
           "name": "add-item",
           "title": "Add Item",
-          "method": "POST",
+          "availableMethods": [ "POST" ],
           "href": "http://api.x.io/orders/42/items",
           "requestTypes": [ "application/x-www-form-urlencoded" ],
           "bodyParams": [
