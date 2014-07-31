@@ -23,29 +23,9 @@ Provided here is a JSON schema for validating Verbose documents.::
           "properites": {
             "type": "object"
           },
-          "links": {
+          "affordances": {
             "type": "array",
-            "items": { "$ref": "http://hyperschema.org/extensions/hyperextend/link#" }
-          },
-          "queries": {
-            "type": "array",
-            "items": { "$ref": "http://hyperschema.org/extensions/hyperextend/query#" }
-          },
-          "actions": {
-            "type": "array",
-            "items": { "$ref": "http://hyperschema.org/extensions/hyperextend/action#" }
-          },
-          "templatedLinks": {
-            "type": "array",
-            "items": { "$ref": "http://hyperschema.org/extensions/hyperextend/templatedLink#" }
-          },
-          "templatedQueries": {
-            "type": "array",
-            "items": { "$ref": "http://hyperschema.org/extensions/hyperextend/templatedQuery#" }
-          },
-          "templatedActions": {
-            "type": "array",
-            "items": { "$ref": "http://hyperschema.org/extensions/hyperextend/templatedAction#" }
+            "items": { "$ref": "http://hyperschema.org/extensions/hyperextend/affordance#" }
           },
           "templates": {
             "type": "array",

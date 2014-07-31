@@ -28,7 +28,7 @@ This example is the example from the `HAL spec <http://stateless.co/hal_specific
         "currentlyProcessing": 14,
         "shippedToday": 20
       },
-      "links": [
+      "affordances": [
         {
           "rels": [ "self" ],
           "href": "/orders"
@@ -48,7 +48,7 @@ This example is the example from the `HAL spec <http://stateless.co/hal_specific
           "label": "Kate"
         }
       ],
-      "partials": [
+      "includes": [
         {
           "rels": [ "ea:order" ],
           "properties": {
@@ -113,7 +113,7 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
           "itemCount": 3,
           "status": "pending"
       },
-      "actions": [
+      "affordances": [
         {
           "name": "add-item",
           "title": "Add Item",
@@ -123,24 +123,19 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
           "bodyParams": [
             { 
               "name": "orderNumber",
-              "type": "number",
-              "format": "hidden",
+              "typesOf": [ "number" ],
               "value": "42"
             },
             { 
               "name": "productCode",
-              "type": "string",
-              "format": "text"
+              "typesOf": [ "string" ],
             },
             {
               "name": "quantity",
-              "type": "number",
-              "format": "number"
+              "typesOf": [ "number" ]
             }
           ]
-        }
-      ],
-      "links": [
+        },
         {
           "rels": [ "self" ],
           "href": "http://api.x.io/orders/42"
@@ -153,9 +148,6 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
           "rels": [ "next" ],
           "href": "http://api.x.io/orders/43"
         }
-      ],
-      "partials": [
-        
       ],
       "includes": [
         { 
@@ -191,10 +183,21 @@ Collection+JSON
       "version" : "0.3",
       "rels": [ "collection" ],
       "href" : "http://example.org/friends/",
-      "links" : [
+      "affordances" : [
         {
-          "rels" : [ "feed"] ,
+          "rels" : [ "feed" ],
           "href" : "http://example.org/friends/rss"
+        },
+        {
+          "rels" : [ "search" ],
+          "href" : "http://example.org/friends/search",
+          "label" : "Search",
+          "queryParams" : [
+            {
+              "name" : "search",
+              "defaultValue" : ""
+            }
+          ]
         }
       ],
       "includes" : [
@@ -209,7 +212,7 @@ Collection+JSON
             "full-name": "J. Doe",
             "email": "jdoe@example.org"
           },
-          "links" : [
+          "affordances" : [
             {
               "rels" : [ "blog" ],
               "href" : "http://examples.org/blogs/jdoe",
@@ -234,7 +237,7 @@ Collection+JSON
             "full-name": "M. Smith",
             "email": "msmith@example.org"
           },
-          "links" : [
+          "affordances" : [
             {
               "rels" : [ "blog" ],
               "href" : "http://examples.org/blogs/msmith",
@@ -259,7 +262,7 @@ Collection+JSON
             "full-name": "R. Williams",
             "email": "rwilliams@example.org"
           },
-          "links" : [
+          "affordances" : [
             {
               "rels" : [ "blog" ],
               "href" : "http://examples.org/blogs/rwilliams",
@@ -270,19 +273,6 @@ Collection+JSON
               "href" : "http://examples.org/images/rwilliams",
               "label" : "Avatar",
               "embedAs" : "image"
-            }
-          ]
-        }
-      ],
-      "queries" : [
-        {
-          "rels" : [ "search" ],
-          "href" : "http://example.org/friends/search",
-          "label" : "Search",
-          "fields" : [
-            {
-              "name" : "search",
-              "defaultValue" : ""
             }
           ]
         }
@@ -319,7 +309,7 @@ This example lets the templated links map its parameters to specific properties 
         "author_id": "9",
         "comment_ids": [ "5", "12", "17", "20" ]
       },
-      "templatedLinks": [
+      "affordances": [
         {
           "typesOf": [ "author", "people" ],
           "hreft": "http://example.com/people/{author_id}",
@@ -367,7 +357,7 @@ Link Relation
           "title": "Total Customers",
           "description": "The total number of customers in this collection.",
           "name": "total_customers",
-          "type": "number"
+          "typesOf": [ "number" ]
         }
       ],  
       "templates": [
@@ -377,8 +367,8 @@ Link Relation
           "forEach": [ "#", "#customer" ],
           "mediaTypes": [ "application/x-www-form-urlencoded" ],
           "fields": [
-            { "name": "first_name", "type": "string", "label": "First Name" },
-            { "name": "last_name", "type": "string", "label": "Last Name" }
+            { "name": "first_name", "typesOf": [ "string" ], "label": "First Name" },
+            { "name": "last_name", "typesOf": "string", "label": "Last Name" }
           ]
         }
       ],
@@ -392,13 +382,13 @@ Link Relation
               "title": "First Name",
               "description": "First name of customer",
               "name": "first_name",
-              "type": "string"
+              "typesOf": [ "string" ]
             },
             {
               "title": "Last Name",
               "description": "Last name of customer",
               "name": "last_name",
-              "type": "string"
+              "types": [ "string" ]
             }
           ]
         }
@@ -463,7 +453,7 @@ Profile
       "id": "customers",
       "rels": [ "collection" ],
       
-      "queries": [
+      "affordances": [
         {
           "id": "search",
           "rels": [ "search" ],
@@ -514,14 +504,11 @@ Resource Representation
       "rels": [ "collection" ],
       "typeOf": "http://example.com/customers#customers",
 
-      "links": [
+      "affordances": [
         {
           "rels": [ "profile" ],
           "href": "http://example.com/customers"
-        }
-      ],
-      
-      "queries": [
+        },
         {
           "id": "search",
           "rels": [ "search" ],

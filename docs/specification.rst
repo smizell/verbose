@@ -70,31 +70,6 @@ These properties are used to define hypermedia information and hints related to 
 ``responseTypes``
   An ``array`` of available media types on the server.
 
-Parameters
-##########
-
-These properites are used to define semantics for URI template parameters, query strings parameters, and body parameters.
-
-``bodyParams``
-  An ``array`` of ``field`` objects that is used for specifying the parameters for the body of a request  
-
-``queryParams``
-  An ``array`` of ``field`` objects that is used for specifying the parameters for a query
-
-``uriParams``
-  An ``array`` of ``field`` objects that is used for specifying the parameters for a URI template
-
-URLs
-####
-
-These properties are used to define the URL or templated URL.
-
-``href``
-  URL of the item. This is a ``string``.
-
-``hreft``
-  Templated URL of the item. This is a ``string``.
-
 Types
 #####
 
@@ -257,26 +232,42 @@ A ``field`` object also provides the following properties:
 ``options``
   An ``array`` of option objects. Option objects have a ``name`` and ``value`` property for each option.
 
-.. _links:
+.. _affordances:
 
-Links
------
+Affordances
+-----------
 
-The ``links`` property is an array of Link objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
+An affordance is a way in which a client can interact with this resource or other related resources. It can be seen as a link to a resource or even an action that can be taken, such as updating a resource.
 
-1. ``id`` - Unique identifier for link
-2. ``name`` - Name of link
-3. ``rels`` - Link relation of link
+The ``affordances`` property is an array of Affordance objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
+
+1. ``id`` - Unique identifier for affordance
+2. ``name`` - Name of affordance
+3. ``rels`` - Affordance relation of affordance
 4. ``responseTypes`` - Types with which the server may respond
 5. ``embedAs`` - Ways to inform the client how an item should be transcluded
-6. ``href`` - URL for the link
-7. ``mapsTo`` - An array of Verbose Paths to map a link to another property
-8. ``typesOf`` - For pointing to another semantic or schema for the link
+6. ``href`` - URL for the affordance
+7. ``hreft`` - URL template
+8. ``mapsTo`` - An array of Verbose Paths to map a affordance to another property
+9. ``typesOf`` - For pointing to another semantic or schema for the affordance
 
-Example
-#######
+An affordance can have different types of parameters that can be used at different times.
 
-The link below provides a link to a customer resource.
+``bodyParams``
+  An ``array`` of ``field`` objects that is used for specifying the parameters for the body of a request  
+
+``queryParams``
+  An ``array`` of ``field`` objects that is used for specifying the parameters for a query
+
+``uriParams``
+  An ``array`` of ``field`` objects that is used for specifying the parameters for a URI template
+
+The ``href`` and ``hreft`` properties MAY be used together, where the ``href`` property takes priority, though the ``hreft`` can be used to specify how to generate other links based on the pattern.
+
+Link Example
+############
+
+The affordance below provides a link to a customer resource.
 
 * It shows ``name`` being used, which has a name of ``customer`` 
 * It defines the link relations for this link using the ``rels`` property
@@ -287,7 +278,7 @@ The link below provides a link to a customer resource.
 
   {
     "verbose": {
-      "links": [
+      "affordances": [
         {
           "name": "customer",
           "rels": [ "item", "http://example.com/rels/customer"],
@@ -301,28 +292,8 @@ The link below provides a link to a customer resource.
     }
   }
 
-.. _actions:
-
-Actions
--------
-
-An action is a way to provide non-idempotent actions that can be taken on a resource. 
-
-The ``actions`` property is an array of Action objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
-
-1. ``id`` - Unique identifier for action
-2. ``name`` - Name of action
-3. ``rels`` - Link relation of action
-4. ``responseTypes`` - Types with which the server may respond
-5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
-6. ``method`` - HTTP method for the action
-7. ``bodyParams`` - An array of available body parameters
-8. ``href`` - URL for the action
-9. ``mapsTo`` - An array of Verbose Paths to map a action to another property
-10. ``typesOf`` - For pointing to another semantic or schema for the action
-
-Example
-#######
+Action Example
+##############
 
 This action can be used to create a customer.
 
@@ -333,9 +304,10 @@ This action can be used to create a customer.
 
   {
     "verbose": {
-      "actions": [
+      "affordances": [
         {
-          "title": "Create Customer",
+          "name": "add-customer",
+          "title": "Add Customer",
           "rels": [ "http://example.com/rels/customers"],
           "href": "/customers",
           "method": "POST",
@@ -356,27 +328,8 @@ This action can be used to create a customer.
     }
   }
 
-.. _queries:
-
-Queries
--------
-
-Queries are safe GET requests that provide a way for specifying query parameters.
-
-The ``queries`` property is an array of Query objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
-
-1. ``id`` - Unique identifier for query
-2. ``name`` - Name of query
-3. ``rels`` - Link relation of query
-4. ``responseTypes`` - Types with which the server may respond
-5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
-6. ``queryParams`` - An array of available query parameters
-7. ``href`` - URL for the query
-8. ``mapsTo`` - An array of Verbose Paths to map a query to another property
-9. ``typesOf`` - For pointing to another semantic or schema for the query
-
-Example
-#######
+Query Example
+#############
 
 This query can be used for searching customers. It has two available query parameters.
 
@@ -387,7 +340,7 @@ This query can be used for searching customers. It has two available query param
 
   {
     "verbose": {
-      "queries": [
+      "affordances": [
         {
           "id": "search",
           "rels": [ "search" ],
@@ -408,25 +361,8 @@ This query can be used for searching customers. It has two available query param
     }
   }
 
-.. _templated_links:
-
-Templated Links
----------------
-
-The ``templatedLinks`` property is an array of Templated Link objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
-
-1. ``id`` - Unique identifier for link
-2. ``name`` - Name of link
-3. ``rels`` - Link relation of link
-4. ``responseTypes`` - Types with which the server may respond
-5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
-6. ``uriParams`` - An array of available parameters for the URI template
-7. ``hreft`` - URL template
-8. ``mapsTo`` - An array of Verbose Paths to map a link to another property
-9. ``typesOf`` - For pointing to another semantic or schema for the link
-
-Example
-#######
+Templated Link Example
+######################
 
 This shows a resource that has a templated link for a customer resource This is very similar to a regular link, but it provides a ``hreft`` property, which is a templated URL, along with URI parameters.
 
@@ -436,7 +372,7 @@ In this case, there is one URI parameters call ``id``, which is a number.
 
   {
     "verbose": {
-      "templatedLinks": [
+      "affordances": [
         {
           "name": "customer",
           "rels": [ "item", "http://example.com/rels/customer"],
@@ -456,27 +392,8 @@ In this case, there is one URI parameters call ``id``, which is a number.
     }
   }
 
-.. _templated_actions:
-
-Templated Actions
------------------
-
-The ``templatedActions`` property is an array of Templated Action objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
-
-1. ``id`` - Unique identifier for action
-2. ``name`` - Name of action
-3. ``rels`` - Link relation of action
-4. ``responseTypes`` - Types with which the server may respond
-5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
-6. ``method`` - HTTP method for the action
-7. ``bodyParams`` - An array of available body parameters
-8. ``uriParams`` - An array of available parameters for the URI template
-9. ``hreft`` - URL template
-10. ``mapsTo`` - An array of Verbose Paths to map a action to another property
-11. ``typesOf`` - For pointing to another semantic or schema for the action
-
-Example
-#######
+Templated Action Example
+########################
 
 This templated action provides an action for editing any customer. This allows for including actions that can be used for multiple resources without including the action multiple times. 
 
@@ -486,7 +403,7 @@ In this example, there are both URI parameters and body parameters for building 
 
   {
     "verbose": {
-      "templatedActions": [
+      "affordances": [
         {
           "title": "Edit Customer",
           "rels": [ "http://example.com/rels/customer"],
@@ -515,26 +432,8 @@ In this example, there are both URI parameters and body parameters for building 
     }
   }
 
-.. _templated_queries:
-
-Templated Queries
------------------
-
-The ``templatedQueries`` property is an array of Templated Query objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
-
-1. ``id`` - Unique identifier for query
-2. ``name`` - Name of query
-3. ``rels`` - Link relation of query
-4. ``responseTypes`` - Types with which the server may respond
-5. ``embedAs`` - Ways to inform the client how an returned resource should be transcluded
-6. ``queryParams`` - An array of available query parameters
-7. ``uriParams`` - An array of available parameters for the URI template
-8. ``hreft`` - URL template
-9. ``mapsTo`` - An array of Verbose Paths to map a query to another property
-10. ``typesOf`` - For pointing to another semantic or schema for the query
-
-Example
-#######
+Templated Query Example
+#######################
 
 This is very similar to the templated action, where it provides a query that can be used for multiple resoures. The example below provides a URI template for creating a URL for an image search for each user.
 
@@ -544,7 +443,7 @@ In this example, there are both URI parameters and query parameters for building
 
   {
     "verbose": {
-      "templatedQueries": [
+      "affordances": [
         {
           "title": "User Image Search",
           "rels": [ "search" ],
@@ -672,23 +571,8 @@ It also supports.
 ``properties``
   A :ref:`Properties object <properties>`
 
-``links``
-  An ``array`` of :ref:`Link objects <links>`
-
-``actions``
-  An ``array`` of :ref:`Action objects <actions>`
-
-``queries``
-  An ``array`` of :ref:`Query objects <queries>`
-
-``templatedLinks``
-  An ``array`` of :ref:`Templated Link objects <templated_links>`
-
-``templatedActions``
-  An ``array`` of :ref:`Templated Action objects <templated_actions>`
-
-``templatedQueries``
-  An ``array`` of :ref:`Templated Query objects <templated_queries>`
+``affordances``
+  An ``array`` of :ref:`Affordance objects <affordances>`
 
 ``templates``
   An ``array`` of :ref:`Resource Template objects <resource_template>`
