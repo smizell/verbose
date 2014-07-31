@@ -47,9 +47,6 @@ These properties define identifying information for items throughout a document.
 ``description``
   A human-readable description for an item. It is a ``string``.
 
-``typesOf``
-  A way to specify what type of item an item is. Useful when specifying Schema.org values or linking to profiles. It is a ``string``.
-
 Hypermedia
 ##########
 
@@ -101,10 +98,10 @@ These properties are used to define the URL or templated URL.
 Types
 #####
 
-These properties are used to define the type of field and semantics.
+``typesOf``
+  A way to specify what type of item an item is. Useful when specifying Schema.org values or linking to profiles. It is an array of strings. If multiple types are specified, the first type is of most priority and the last type is of least, in the event that there are conflicting restraints. Having several types is an option, but it may be better to create and define a new type if there are too many.
 
-``type``
-  The JSON type for this field value. This can be:
+  By default, Verbose supports the JSON primitives:
 
   1. string
   2. number
@@ -112,18 +109,15 @@ These properties are used to define the type of field and semantics.
   4. array
   5. object
 
-  This is a ``string``.
-
-``format``
-  HTML input types. This is a ``string``.
+  You can of course create your own types and define certain constraints and validations on the object. See the 
 
 Extensibility
 #############
 
 Each of these properties use :ref:`Verbose Path <verbose_path>` to reference items from the same document or other documents. Please see the documentation on this to understand how Verbose Path works.
 
-``extends``
-  A way to extend the item with other items. It is an ``array``.
+``extend``
+  A way to extend the item with other items. It is an object, the contents of which can be defined outside of this spec.
 
 ``forEach``
   An ``array`` of Verbose Paths that specify for what item a template can be used. These templates can be for links, queries, actions, or resource templates.
@@ -246,8 +240,8 @@ A Field object supports the following properites listed in the :ref:`Definitions
 
 1. ``id`` - Unique identifier for field
 2. ``name`` - Name of field
-3. ``type`` - Type of the field
-4. ``format`` - Format of the field (HTML inputs)
+3. ``typesOf`` - Types of the field
+4. ``extend`` - Added details determined by the type
 
 A ``field`` object also provides the following properties:
 
@@ -257,11 +251,11 @@ A ``field`` object also provides the following properties:
 ``currentValue``
   The current value of the field. This is a ``string``.
 
-``options``
-  An ``array`` of option objects
+``value``
+  The value of the field which cannot be changed. The ``defaultValue`` and ``currentValue`` properties allow for the values to be changed or set, though the ``value`` property is unchangeable. It is a way for the API to provide unchangeable field data, equivalent to a hidden field in HTML.
 
-``option``
-  An object with a ``name`` and ``value`` property. This is an ``object``.
+``options``
+  An ``array`` of option objects. Option objects have a ``name`` and ``value`` property for each option.
 
 .. _links:
 
