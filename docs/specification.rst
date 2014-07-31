@@ -61,7 +61,7 @@ These properties are used to define hypermedia information and hints related to 
   4. text
   5. application
 
-``availableMethods``
+``methods``
   For specifying an HTTP method. This is an array of strings.
 
 ``rels``
@@ -104,7 +104,7 @@ Each of these properties use :ref:`Verbose Path <verbose_path>` to reference ite
     {
       "verbose": {
         "href": "/customers",
-        "availableMethods": [ "GET", "POST" ],
+        "methods": [ "GET", "POST" ],
         "templates": [
           {
             "forEach": [ "#", "#/includes[rel=item]" ]
@@ -250,7 +250,7 @@ The ``affordances`` property is an array of Affordance objects. It supports the 
 7. ``hreft`` - URL template
 8. ``mapsTo`` - An array of Verbose Paths to map a affordance to another property
 9. ``typesOf`` - For pointing to another semantic or schema for the affordance
-10. ``availableMethods`` - For specifying available methods for the affordance. If this is not set, GET is assumed.
+10. ``methods`` - For specifying available methods for the affordance. If this is not set, GET is assumed.
 
 An affordance can have different types of parameters that can be used at different times.
 
@@ -311,7 +311,7 @@ This action can be used to create a customer.
           "title": "Add Customer",
           "rels": [ "http://example.com/rels/customers"],
           "href": "/customers",
-          "availableMethods": [ "POST" ],
+          "methods": [ "POST" ],
           "bodyParams": [
             {
               "name": "first_name",
@@ -409,7 +409,7 @@ In this example, there are both URI parameters and body parameters for building 
           "title": "Edit Customer",
           "rels": [ "http://example.com/rels/customer"],
           "hreft": "/customer/{id}",
-          "availableMethods": [ "PUT" ],
+          "methods": [ "PUT" ],
           "uriParams": [
             {
               "name": "id",
@@ -493,7 +493,7 @@ This is an example of a resource that provides templates for working with this p
   {
     "verbose": {
       "href": "/customers",
-      "availableMethods": [ "GET", "POST" ],
+      "methods": [ "GET", "POST" ],
       "templates": [
         {
           "forEach": [ "#", "#/includes[rel=item]" ],
@@ -563,7 +563,7 @@ It also supports.
 ``href``
   Link to the resource
 
-``availableMethods``
+``methods``
   Defines the HTTP methods available for this resource
 
 ``semantics``

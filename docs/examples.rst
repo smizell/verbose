@@ -117,7 +117,7 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
         {
           "name": "add-item",
           "title": "Add Item",
-          "availableMethods": [ "POST" ],
+          "methods": [ "POST" ],
           "href": "http://api.x.io/orders/42/items",
           "requestTypes": [ "application/x-www-form-urlencoded" ],
           "bodyParams": [
@@ -351,7 +351,7 @@ Link Relation
       "title": "Customer Collection",
       "description": "This is a collection of customers",
       "typesOf": [ "customers" ],
-      "availableMethods": [ "GET", "POST" ],
+      "methods": [ "GET", "POST" ],
       "semantics": [
         { 
           "title": "Total Customers",
