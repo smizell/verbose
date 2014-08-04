@@ -1,9 +1,9 @@
 0.4.0 (beta)
 ------------
 
-## Affordances 
+## Transitions 
 
-All links, actions, queries, and templates have been comibined into one property called `affordances`. The reason for this was to make it easy for clients to deal with finding specific links. This information can still be derived from the affordance.
+All links, actions, queries, and templates have been comibined into one property called `transitions`. The reason for this was to make it easy for clients to deal with finding specific links. This information can still be derived from the affordance.
 
 * If there is no `methods`, or if the `methods` has GET, it can be a link
 * If it has `queryParams`, it can be a query

@@ -28,7 +28,7 @@ This example is the example from the `HAL spec <http://stateless.co/hal_specific
         "currentlyProcessing": 14,
         "shippedToday": 20
       },
-      "affordances": [
+      "transitions": [
         {
           "rels": [ "self" ],
           "href": "/orders"
@@ -113,7 +113,7 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
           "itemCount": 3,
           "status": "pending"
       },
-      "affordances": [
+      "transitions": [
         {
           "name": "add-item",
           "title": "Add Item",
@@ -183,7 +183,7 @@ Collection+JSON
       "version" : "0.3",
       "rels": [ "collection" ],
       "href" : "http://example.org/friends/",
-      "affordances" : [
+      "transitions" : [
         {
           "rels" : [ "feed" ],
           "href" : "http://example.org/friends/rss"
@@ -212,7 +212,7 @@ Collection+JSON
             "full-name": "J. Doe",
             "email": "jdoe@example.org"
           },
-          "affordances" : [
+          "transitions" : [
             {
               "rels" : [ "blog" ],
               "href" : "http://examples.org/blogs/jdoe",
@@ -237,7 +237,7 @@ Collection+JSON
             "full-name": "M. Smith",
             "email": "msmith@example.org"
           },
-          "affordances" : [
+          "transitions" : [
             {
               "rels" : [ "blog" ],
               "href" : "http://examples.org/blogs/msmith",
@@ -262,7 +262,7 @@ Collection+JSON
             "full-name": "R. Williams",
             "email": "rwilliams@example.org"
           },
-          "affordances" : [
+          "transitions" : [
             {
               "rels" : [ "blog" ],
               "href" : "http://examples.org/blogs/rwilliams",
@@ -309,7 +309,7 @@ This example lets the templated links map its parameters to specific properties 
         "author_id": "9",
         "comment_ids": [ "5", "12", "17", "20" ]
       },
-      "affordances": [
+      "transitions": [
         {
           "typesOf": [ "author", "people" ],
           "hreft": "http://example.com/people/{author_id}",
@@ -453,7 +453,7 @@ Profile
       "id": "customers",
       "rels": [ "collection" ],
       
-      "affordances": [
+      "transitions": [
         {
           "id": "search",
           "rels": [ "search" ],
@@ -504,7 +504,7 @@ Resource Representation
       "rels": [ "collection" ],
       "typeOf": "http://example.com/customers#customers",
 
-      "affordances": [
+      "transitions": [
         {
           "rels": [ "profile" ],
           "href": "http://example.com/customers"

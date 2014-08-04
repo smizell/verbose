@@ -232,27 +232,27 @@ A ``field`` object also provides the following properties:
 ``options``
   An ``array`` of option objects. Option objects have a ``name`` and ``value`` property for each option.
 
-.. _affordances:
+.. _transitions:
 
-Affordances
+Transitions
 -----------
 
-An affordance is a way in which a client can interact with this resource or other related resources. It can be seen as a link to a resource or even an action that can be taken, such as updating a resource.
+A transition is a way in which a client can interact with this resource or other related resources. It can be seen as a link to a resource or even an action that can be taken, such as updating a resource.
 
-The ``affordances`` property is an array of Affordance objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
+The ``transitions`` property is an array of Transition objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
 
-1. ``id`` - Unique identifier for affordance
-2. ``name`` - Name of affordance
-3. ``rels`` - Affordance relation of affordance
+1. ``id`` - Unique identifier for item
+2. ``name`` - Name of transition
+3. ``rels`` - Link relation of the transition
 4. ``responseTypes`` - Types with which the server may respond
 5. ``embedAs`` - Ways to inform the client how an item should be transcluded
-6. ``href`` - URL for the affordance
+6. ``href`` - URL for the transition
 7. ``hreft`` - URL template
-8. ``mapsTo`` - An array of Verbose Paths to map a affordance to another property
-9. ``typesOf`` - For pointing to another semantic or schema for the affordance
-10. ``methods`` - For specifying available methods for the affordance. If this is not set, GET is assumed.
+8. ``mapsTo`` - An array of Verbose Paths to map a transition to another property
+9. ``typesOf`` - For pointing to another semantic or schema for the transition
+10. ``methods`` - For specifying available methods for the transition. If this is not set, GET is assumed.
 
-An affordance can have different types of parameters that can be used at different times.
+An transition can have different types of parameters that can be used at different times.
 
 ``bodyParams``
   An ``array`` of ``field`` objects that is used for specifying the parameters for the body of a request  
@@ -268,7 +268,7 @@ The ``href`` and ``hreft`` properties MAY be used together, where the ``href`` p
 Link Example
 ############
 
-The affordance below provides a link to a customer resource.
+The transition below provides a link to a customer resource.
 
 * It shows ``name`` being used, which has a name of ``customer`` 
 * It defines the link relations for this link using the ``rels`` property
@@ -279,7 +279,7 @@ The affordance below provides a link to a customer resource.
 
   {
     "verbose": {
-      "affordances": [
+      "transitions": [
         {
           "name": "customer",
           "rels": [ "item", "http://example.com/rels/customer"],
@@ -305,7 +305,7 @@ This action can be used to create a customer.
 
   {
     "verbose": {
-      "affordances": [
+      "transitions": [
         {
           "name": "add-customer",
           "title": "Add Customer",
@@ -341,7 +341,7 @@ This query can be used for searching customers. It has two available query param
 
   {
     "verbose": {
-      "affordances": [
+      "transitions": [
         {
           "id": "search",
           "rels": [ "search" ],
@@ -373,7 +373,7 @@ In this case, there is one URI parameters call ``id``, which is a number.
 
   {
     "verbose": {
-      "affordances": [
+      "transitions": [
         {
           "name": "customer",
           "rels": [ "item", "http://example.com/rels/customer"],
@@ -404,7 +404,7 @@ In this example, there are both URI parameters and body parameters for building 
 
   {
     "verbose": {
-      "affordances": [
+      "transitions": [
         {
           "title": "Edit Customer",
           "rels": [ "http://example.com/rels/customer"],
@@ -444,7 +444,7 @@ In this example, there are both URI parameters and query parameters for building
 
   {
     "verbose": {
-      "affordances": [
+      "transitions": [
         {
           "title": "User Image Search",
           "rels": [ "search" ],
@@ -572,8 +572,8 @@ It also supports.
 ``properties``
   A :ref:`Properties object <properties>`
 
-``affordances``
-  An ``array`` of :ref:`Affordance objects <affordances>`
+``transitions``
+  An ``array`` of :ref:`Transition objects <transitions>`
 
 ``templates``
   An ``array`` of :ref:`Resource Template objects <resource_template>`
