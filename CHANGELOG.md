@@ -24,3 +24,7 @@ A `method` property is now added to the resource templates.
 
 A `rels` property is now added to templates
 
+## Meta
+
+Now Verbose supports a meta property on the resource.
+

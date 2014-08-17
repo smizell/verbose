@@ -152,7 +152,7 @@ Example
 
   {
     "verbose": {
-      "version": "0.3",
+      "version": "0.4",
       "prefixes": [
         {
           "prefix": "schema",
@@ -539,6 +539,49 @@ Includes
 
 Included resources are just to be considered as included resources and MAY be full representations. The reason for this and the ``partials`` property is that it allows for explicitly telling the client that the resource needs to be requested if the full resource is desired.
 
+.. _meta:
+
+Meta
+----
+
+The ``meta`` property is a resource object that can be used to specify meta data, such as meta links or properties. The properties and links for the error are left up to the designer. 
+
+::
+
+  {
+    "versbose": {
+      "version": "0.4",
+      "meta": {
+        "transitions": [
+          {
+            "rels": [ "self" ],
+            "href": "/customers"
+          }
+        ]
+      }
+    }
+  }
+
+.. _errors:
+
+Errors
+------
+
+The ``errors`` property is a resource object that can be used specifically for errors. The properties and links for the error are left up to the designer.
+
+::
+
+  {
+    "versbose": {
+      "version": "0.4",
+      "errors": {
+        "properties": {
+          "message": "There was an error when creating this resource"
+        }
+      }
+    }
+  }
+
 .. _resource:
 
 Resource
@@ -550,6 +593,9 @@ A Verbose Resource is an ``object`` for defining everything dealing with a parti
 2. ``name`` - Name of resource
 
 It also supports.
+
+``meta``
+  A :ref:`Meta object <meta>`
 
 ``href``
   Link to the resource
@@ -577,26 +623,6 @@ It also supports.
 
 See the :ref:`Examples <examples>` page for examples of a resource
 
-.. _errors:
-
-Errors
-------
-
-The ``errors`` property is a Verbose object that can be used specifically for errors. The properties and links for the error are left up to the designer.
-
-::
-
-  {
-    "versbose": {
-      "version": "0.3",
-      "errors": {
-        "properties": {
-          "message": "There was an error when creating this resource"
-        }
-      }
-    }
-  }
-
 .. _verbose_path:
 
 Verbose Path
@@ -613,7 +639,7 @@ The ``#`` alone SHOULD be considered the path to the root resource of a Verbose 
 
   {
     "verbose": {
-      "version": "0.3",
+      "version": "0.4",
       "templates": [
         {
           "forEach": [ "#" ],
@@ -637,7 +663,7 @@ This shows the template can be used for the item where the ID is equal to ``pers
 
   {
     "verbose": {
-      "version": "0.3",
+      "version": "0.4",
       "templates": [
         {
           "forEach": [ "#person" ],
@@ -666,7 +692,7 @@ Properties of an object can be specified with a dot. Shown below, the semantics 
 
   {
     "verbose": {
-      "version": "0.3",
+      "version": "0.4",
       "semantics": [
         {
           "name": "customer",
@@ -702,7 +728,7 @@ Arrays can also be referenced.
 
   {
     "verbose": {
-      "version": "0.3",
+      "version": "0.4",
       "semantics": [
         {
           "name": "customers",
@@ -744,7 +770,7 @@ The square brackets can be used to filter arrays. The example below shows the te
 
   {
     "verbose": {
-      "version": "0.3",
+      "version": "0.4",
       "templates": [
         {
           "forEach": [ "#/includes[name=customer]" ],
