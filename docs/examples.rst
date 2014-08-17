@@ -279,7 +279,20 @@ Collection+JSON
       ],
       "templates" : [
         {
-          "forEach": [ "#", "#/includes@item" ],
+          "forEach": [ "#" ],
+          "rels": [ "append" ],
+          "method": "POST",
+          "fields" : [
+            { "name" : "full-name", "defaultValue" : "", "label" : "Full Name" },
+            { "name" : "email", "defaultValue" : "", "label" : "Email" },
+            { "name" : "blog", "defaultValue" : "", "label" : "Blog" },
+            { "name" : "avatar", "defaultValue" : "", "label" : "Avatar" }
+          ]
+        },
+        {
+          "forEach": [ "#/includes[rel=item]" ],
+          "rels": [ "update" ],
+          "method": "PUT",
           "fields" : [
             { "name" : "full-name", "defaultValue" : "", "label" : "Full Name" },
             { "name" : "email", "defaultValue" : "", "label" : "Email" },
@@ -351,7 +364,6 @@ Link Relation
       "title": "Customer Collection",
       "description": "This is a collection of customers",
       "typesOf": [ "customers" ],
-      "methods": [ "GET", "POST" ],
       "semantics": [
         { 
           "title": "Total Customers",
@@ -360,15 +372,15 @@ Link Relation
           "typesOf": [ "number" ]
         }
       ],  
-      "templates": [
+      "transitions": [
         {
-          "title": "Customer Template",
-          "description": "Template for appending new customers to this collection",
-          "forEach": [ "#", "#customer" ],
-          "mediaTypes": [ "application/x-www-form-urlencoded" ],
+          "title": "Append Customer",
+          "description": "Action for adding a new customer",
+          "method": "POST",
+          "requestTypes": [ "application/x-www-form-urlencoded" ],
           "fields": [
             { "name": "first_name", "typesOf": [ "string" ], "label": "First Name" },
-            { "name": "last_name", "typesOf": "string", "label": "Last Name" }
+            { "name": "last_name", "typesOf": [ "string" ], "label": "Last Name" }
           ]
         }
       ],
@@ -389,6 +401,18 @@ Link Relation
               "description": "Last name of customer",
               "name": "last_name",
               "types": [ "string" ]
+            }
+          ],
+          "transitions": [
+            {
+              "title": "Update Customer",
+              "description": "Action for adding a new",
+              "method": "PUT",
+              "requestTypes": [ "application/x-www-form-urlencoded" ],
+              "fields": [
+                { "name": "first_name", "typesOf": [ "string" ], "label": "First Name" },
+                { "name": "last_name", "typesOf": [ "string" ], "label": "Last Name" }
+              ]
             }
           ]
         }

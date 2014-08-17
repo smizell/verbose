@@ -61,8 +61,7 @@ These properties are used to define hypermedia information and hints related to 
   4. text
   5. application
 
-``methods``
-  For specifying an HTTP method. This is an array of strings.
+  If left blank, it is assumed to be a normal link.
 
 ``rels``
   An ``array`` of link relations for an item.
@@ -104,7 +103,6 @@ Each of these properties use :ref:`Verbose Path <verbose_path>` to reference ite
     {
       "verbose": {
         "href": "/customers",
-        "methods": [ "GET", "POST" ],
         "templates": [
           {
             "forEach": [ "#", "#/includes[rel=item]" ]
@@ -118,6 +116,19 @@ Each of these properties use :ref:`Verbose Path <verbose_path>` to reference ite
 ``mapsTo``
   An ``array`` of Verbose Path strings (see  section for details on how this is used)
 
+.. _namespace:
+
+Namespace
+---------
+
+All Verbose documents MUST have a ``verbose`` namespace.
+
+::
+
+  {
+    "verbose": {}
+  }
+
 .. _prefixes:
 
 Prefixes
@@ -128,8 +139,11 @@ Prefixes can be used to shorten URLs. When used, they are available throughout t
 ``prefixes``
   This is an ``array`` of prefix objects.
 
-``prefix``
-  This is an object with two properties: ``prefix`` and ``href``. 
+  ``prefix``
+    The short prefix name.
+
+  ``href``
+    The URL to be used as the prefix.
 
 Example
 #######
@@ -142,23 +156,10 @@ Example
       "prefixes": [
         {
           "prefix": "schema",
-          "href": "http://schema.org"
+          "href": "http://schema.org/"
         }
       ]
     }
-  }
-
-.. _namespace:
-
-Namespace
----------
-
-All Verbose documents MUST have a ``verbose`` namespace.
-
-::
-
-  {
-    "verbose": {}
   }
 
 .. _properties:
@@ -245,25 +246,25 @@ The ``transitions`` property is an array of Transition objects. It supports the 
 2. ``name`` - Name of transition
 3. ``rels`` - Link relation of the transition
 4. ``responseTypes`` - Types with which the server may respond
-5. ``embedAs`` - Ways to inform the client how an item should be transcluded
-6. ``href`` - URL for the transition
-7. ``hreft`` - URL template
-8. ``mapsTo`` - An array of Verbose Paths to map a transition to another property
-9. ``typesOf`` - For pointing to another semantic or schema for the transition
-10. ``methods`` - For specifying available methods for the transition. If this is not set, GET is assumed.
+5. ``requestTypes`` - Types in which the server accepts
+6. ``embedAs`` - Ways to inform the client how an item should be transcluded
+7. ``href`` - URL for the transition
+8. ``hreft`` - URL template
+9. ``mapsTo`` - An array of Verbose Paths to map a transition to another property
+10. ``typesOf`` - For pointing to another semantic or schema for the transition
+11. ``method`` - For specifying the protocol method to use with the transition. If this is not set, GET SHOULD be assumed.
+
+The ``href`` and ``hreft`` properties MUST NOT be used together in the same transition. The different is that the ``hreft`` property is a URI template that requires different processing.
 
 An transition can have different types of parameters that can be used at different times.
 
 ``bodyParams``
   An ``array`` of ``field`` objects that is used for specifying the parameters for the body of a request  
 
-``queryParams``
-  An ``array`` of ``field`` objects that is used for specifying the parameters for a query
-
 ``uriParams``
-  An ``array`` of ``field`` objects that is used for specifying the parameters for a URI template
+  An ``array`` of ``field`` objects that is used for specifying the parameters for a URI template or for query parameters. When used with a transition containing an ``href``, it should be used as query parameters. When used with a transition with ``hreft``, it should be used as URI template parameters.
 
-The ``href`` and ``hreft`` properties MAY be used together, where the ``href`` property takes priority, though the ``hreft`` can be used to specify how to generate other links based on the pattern.
+  When used with a templated transition that uses ``hreft``, all URL path parameters MUST be required, even if not explicitly stated.
 
 Link Example
 ############
@@ -307,11 +308,10 @@ This action can be used to create a customer.
     "verbose": {
       "transitions": [
         {
-          "name": "add-customer",
           "title": "Add Customer",
-          "rels": [ "http://example.com/rels/customers"],
+          "rels": [ "append"],
           "href": "/customers",
-          "methods": [ "POST" ],
+          "method": "POST",
           "bodyParams": [
             {
               "name": "first_name",
@@ -343,11 +343,10 @@ This query can be used for searching customers. It has two available query param
     "verbose": {
       "transitions": [
         {
-          "id": "search",
           "rels": [ "search" ],
           "href": "/customers",
           "description": "Customer search",
-          "queryParams": [
+          "uriParams": [
             {
               "title": "Company Name",
               "name": "company_name"
@@ -393,46 +392,6 @@ In this case, there is one URI parameters call ``id``, which is a number.
     }
   }
 
-Templated Action Example
-########################
-
-This templated action provides an action for editing any customer. This allows for including actions that can be used for multiple resources without including the action multiple times. 
-
-In this example, there are both URI parameters and body parameters for building the request.
-
-::
-
-  {
-    "verbose": {
-      "transitions": [
-        {
-          "title": "Edit Customer",
-          "rels": [ "http://example.com/rels/customer"],
-          "hreft": "/customer/{id}",
-          "methods": [ "PUT" ],
-          "uriParams": [
-            {
-              "name": "id",
-              "type": "number"
-            }
-          ],
-          "bodyParams": [
-            {
-              "name": "first_name",
-              "type": "string",
-              "label": "First Name"
-            },
-            {
-              "name": "last_name",
-              "type": "string",
-              "label": "Last Name"
-            }
-          ]
-        }
-      ]
-    }
-  }
-
 Templated Query Example
 #######################
 
@@ -467,37 +426,69 @@ In this example, there are both URI parameters and query parameters for building
     }
   }
 
+Templated Action Example
+########################
+
+This templated action provides an action for editing any customer. This allows for including actions that can be used for multiple resources without including the action multiple times. 
+
+In this example, there are both URI parameters and body parameters for building the request.
+
+::
+
+  {
+    "verbose": {
+      "transitions": [
+        {
+          "title": "Edit Customer",
+          "rels": [ "http://example.com/rels/customer"],
+          "hreft": "/customer/{id}",
+          "method": "PUT",
+          "uriParams": [
+            {
+              "name": "id",
+              "type": "number"
+            }
+          ],
+          "bodyParams": [
+            {
+              "name": "first_name",
+              "type": "string",
+              "label": "First Name"
+            },
+            {
+              "name": "last_name",
+              "type": "string",
+              "label": "Last Name"
+            }
+          ]
+        }
+      ]
+    }
+  }
+
 .. _resource_template:
 
 Resource Template
 -----------------
 
-This item uses the ``forEach`` from the :ref:`Definitions <definitions>` list. It also supports:
-
-``mediaTypes``
-  Defines the media types for the request. Can be an array of media types.
-
-``semantics``
-  An ``array`` of Verbose Semantic objects. This is useful to define semantic properties for a template.
-
-``fields``
-  An ``array`` of field objects.
+This item uses the ``forEach`` from the :ref:`Definitions <definitions>` list. It also supports all of the properties that a transition supports except for the ``href`` and ``hreft`` properties.
 
 Example
 #######
 
-This is an example of a resource that provides templates for working with this particular resource and/or embedded resources. It shows this template can be used for the root resource and for any included resource with ``item`` as a rel.
+This is an example of a resource that provides templates for working with embedded resources. It shows this template can be used for any included resource with ``item`` as a rel, and uses ``forEach`` to specify this.
 
 ::
 
   {
     "verbose": {
       "href": "/customers",
-      "methods": [ "GET", "POST" ],
       "templates": [
         {
+          "rels": [ "update" ],
           "forEach": [ "#", "#/includes[rel=item]" ],
-          "mediaTypes": [ "application/x-www-form-urlencoded" ],
+          "requestTypes": [ "application/x-www-form-urlencoded" ],
+          "method": "PUT"
           "fields": [
             {
               "name": "first_name",
@@ -563,9 +554,6 @@ It also supports.
 ``href``
   Link to the resource
 
-``methods``
-  Defines the HTTP methods available for this resource
-
 ``semantics``
   An ``array`` of :ref:`Semantic objects <semantics>`
 
@@ -629,6 +617,8 @@ The ``#`` alone SHOULD be considered the path to the root resource of a Verbose 
       "templates": [
         {
           "forEach": [ "#" ],
+          "method": "POST",
+          "rels": [ "create" ],
           "fields": [
             { "name": "first_name" },
             { "name": "last_name" }
@@ -651,6 +641,8 @@ This shows the template can be used for the item where the ID is equal to ``pers
       "templates": [
         {
           "forEach": [ "#person" ],
+          "method": "POST",
+          "rels": [ "edit" ],
           "fields": [
             { "name": "first_name" },
             { "name": "last_name" }
@@ -756,6 +748,8 @@ The square brackets can be used to filter arrays. The example below shows the te
       "templates": [
         {
           "forEach": [ "#/includes[name=customer]" ],
+          "method": "PUT",
+          "rels": [ "update" ],
           "fields": [
             { "name": "first_name" },
             { "name": "last_name" }

@@ -1,6 +1,9 @@
 Schema
 ======
 
+.. warning ::
+  This schema is out of date. Do not use. Will be updated soon.
+
 Provided here is a JSON schema for validating Verbose documents.::
 
   {
@@ -20,7 +23,7 @@ Provided here is a JSON schema for validating Verbose documents.::
             "type": "array",
             "items": { "$ref": "http://hyperschema.org/extensions/hyperextend/semantic#" }
           },
-          "properites": {
+          "properties": {
             "type": "object"
           },
           "affordances": {
