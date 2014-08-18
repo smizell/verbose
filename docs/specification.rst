@@ -178,10 +178,13 @@ The ``semantics`` array is an array of Semantic objects. It supports the followi
 
 1. ``id`` - Unique identifier for semantic
 2. ``name`` - Name of property being defined
-3. ``type`` - Type of the property
-4. ``format`` - HTML format of the property
-5. ``typesOf`` - For pointing to another semantic or schema for the property
-6. ``mapsTo`` - Property to which the semantic point
+3. ``title`` - Title of semantic
+4. ``description`` - Description of semantic
+5. ``label`` - Human-readable label or prompt for semantic
+6. ``type`` - Type of the property
+7. ``format`` - HTML format of the property
+8. ``typesOf`` - For pointing to another semantic or schema for the property
+9. ``mapsTo`` - Property to which the semantic point
 
 Example
 #######
@@ -216,8 +219,11 @@ A Field object supports the following properites listed in the :ref:`Definitions
 
 1. ``id`` - Unique identifier for field
 2. ``name`` - Name of field
-3. ``typesOf`` - Types of the field
-4. ``extend`` - Added details determined by the type
+3. ``title`` - Title of field
+4. ``description`` - Description of field
+5. ``label`` - Human-readable label or prompt for field
+6. ``typesOf`` - Types of the field
+7. ``extend`` - Added details determined by the type
 
 A ``field`` object also provides the following properties:
 
@@ -244,15 +250,18 @@ The ``transitions`` property is an array of Transition objects. It supports the 
 
 1. ``id`` - Unique identifier for item
 2. ``name`` - Name of transition
-3. ``rels`` - Link relation of the transition
-4. ``responseTypes`` - Types with which the server may respond
-5. ``requestTypes`` - Types in which the server accepts
-6. ``embedAs`` - Ways to inform the client how an item should be transcluded
-7. ``href`` - URL for the transition
-8. ``hreft`` - URL template
-9. ``mapsTo`` - An array of Verbose Paths to map a transition to another property
-10. ``typesOf`` - For pointing to another semantic or schema for the transition
-11. ``method`` - For specifying the protocol method to use with the transition. If this is not set, GET SHOULD be assumed.
+3. ``title`` - Title of transition
+4. ``description`` - Description of transition
+5. ``label`` - Human-readable label or prompt for transition
+6. ``rels`` - Link relation of the transition
+7. ``responseTypes`` - Types with which the server may respond
+8. ``requestTypes`` - Types in which the server accepts
+9. ``embedAs`` - Ways to inform the client how an item should be transcluded
+10. ``href`` - URL for the transition
+11. ``hreft`` - URL template
+12. ``mapsTo`` - An array of Verbose Paths to map a transition to another property
+13. ``typesOf`` - For pointing to another semantic or schema for the transition
+14. ``method`` - For specifying the protocol method to use with the transition. If this is not set, GET SHOULD be assumed.
 
 The ``href`` and ``hreft`` properties MUST NOT be used together in the same transition. The different is that the ``hreft`` property is a URI template that requires different processing.
 
