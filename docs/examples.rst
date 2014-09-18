@@ -28,7 +28,7 @@ This example is the example from the `HAL spec <http://stateless.co/hal_specific
         "currentlyProcessing": 14,
         "shippedToday": 20
       },
-      "transitions": [
+      "links": [
         {
           "rels": [ "self" ],
           "href": "/orders"
@@ -113,11 +113,25 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
           "itemCount": 3,
           "status": "pending"
       },
-      "transitions": [
+      "links": [
+        {
+          "rels": [ "self" ],
+          "href": "http://api.x.io/orders/42"
+        },
+        {
+          "rels": [ "previous" ],
+          "href": "http://api.x.io/orders/41"
+        },
+        {
+          "rels": [ "next" ],
+          "href": "http://api.x.io/orders/43"
+        }
+      ],
+      "actions": [
         {
           "name": "add-item",
           "title": "Add Item",
-          "methods": [ "POST" ],
+          "method": "POST",
           "href": "http://api.x.io/orders/42/items",
           "requestTypes": [ "application/x-www-form-urlencoded" ],
           "bodyParams": [
@@ -136,18 +150,6 @@ This is taken from the example in the `Siren spec <https://github.com/kevinswibe
             }
           ]
         },
-        {
-          "rels": [ "self" ],
-          "href": "http://api.x.io/orders/42"
-        },
-        {
-          "rels": [ "previous" ],
-          "href": "http://api.x.io/orders/41"
-        },
-        {
-          "rels": [ "next" ],
-          "href": "http://api.x.io/orders/43"
-        }
       ],
       "includes": [
         { 
@@ -183,11 +185,13 @@ Collection+JSON
       "version" : "0.4",
       "rels": [ "collection" ],
       "href" : "http://example.org/friends/",
-      "transitions" : [
+      "links" : [
         {
           "rels" : [ "feed" ],
           "href" : "http://example.org/friends/rss"
-        },
+        }
+      ],
+      "queries": [
         {
           "rels" : [ "search" ],
           "href" : "http://example.org/friends/search",
@@ -322,7 +326,7 @@ This example lets the templated links map its parameters to specific properties 
         "author_id": "9",
         "comment_ids": [ "5", "12", "17", "20" ]
       },
-      "transitions": [
+      "templatedLinks": [
         {
           "typesOf": [ "author", "people" ],
           "hreft": "http://example.com/people/{author_id}",
@@ -372,7 +376,7 @@ Link Relation
           "typesOf": [ "number" ]
         }
       ],  
-      "transitions": [
+      "actions": [
         {
           "title": "Append Customer",
           "description": "Action for adding a new customer",
@@ -403,7 +407,7 @@ Link Relation
               "types": [ "string" ]
             }
           ],
-          "transitions": [
+          "actions": [
             {
               "title": "Update Customer",
               "description": "Action for adding a new",
@@ -470,14 +474,11 @@ Profile
   {
     "verbose": {
       "version": "0.4",
-
       "title": "Collection of Customers",
       "description": "A collection of customers",
-
       "id": "customers",
       "rels": [ "collection" ],
-      
-      "transitions": [
+      "queries": [
         {
           "id": "search",
           "rels": [ "search" ],
@@ -493,11 +494,9 @@ Profile
               "description": "Email address search field",
               "name": "email"
             }
-          ],
-          "returns": "#customers"
+          ]
         }
       ],
-      
       "includes": [
         {
           "id": "customer",
@@ -523,16 +522,16 @@ Resource Representation
   {
     "verbose": {
       "version": "0.4",
-
       "id": "customers",
       "rels": [ "collection" ],
       "typeOf": "http://example.com/customers#customers",
-
-      "transitions": [
+      "links": [
         {
           "rels": [ "profile" ],
           "href": "http://example.com/customers"
-        },
+        }
+      ],
+      "queries": [
         {
           "id": "search",
           "rels": [ "search" ],
@@ -550,7 +549,6 @@ Resource Representation
           ]
         }
       ],
-      
       "includes": [
         {
           "typesOf": [ "customer" ],

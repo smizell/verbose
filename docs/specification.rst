@@ -27,26 +27,6 @@ Definitions
 
 Since Verbose reuses a lot of properites, this section will first define some of these common properties. 
 
-Identifying
-###########
-
-These properties define identifying information for items throughout a document.
-
-``id``
-  A unique identifier for an item. It MUST be unique for the entire document. It is a ``string``.
-
-``name``
-  A way to give a name to an item in the Verbose document. It is a ``string``.
-
-``label``
-  Human-readable label for a property
-
-``title``
-  A human-readable title for an item. It is a ``string``.
-
-``description``
-  A human-readable description for an item. It is a ``string``.
-
 Hypermedia
 ##########
 
@@ -116,6 +96,69 @@ Each of these properties use :ref:`Verbose Path <verbose_path>` to reference ite
 ``mapsTo``
   An ``array`` of Verbose Path strings (see  section for details on how this is used)
 
+.. _resource:
+
+Resource
+--------
+
+A Verbose Resource is an ``object`` for defining everything dealing with a particular resource. It uses these properties from the definition list.
+
+1. ``id`` - Unique identifier for resource
+2. ``name`` - Name of resource
+3. ``typesOf`` - For pointing to another semantic or schema for the resource
+
+It also supports.
+
+``id``
+  Unique identifier for resource
+
+``name``
+  Name of resource
+
+``typesOf``
+  For pointing to another semantic or schema for the resource
+
+``meta``
+  A :ref:`Meta object <meta>`
+
+``href``
+  Link to the resource
+
+``prefixes``
+  An ``array`` of :ref:`Prefix objects <prefixes>`
+
+``semantics``
+  An ``array`` of :ref:`Semantic objects <semantics>`
+
+``properties``
+  A :ref:`Properties object <properties>`
+
+``links``
+  An ``array`` of :ref:`Link objects <links>`
+
+``queries``
+  An ``array`` of :ref:`Query objects <queries>`
+
+``actions``
+  An ``array`` of :ref:`Action objects <actions>`
+
+``templatedLinks``
+  An ``array`` of :ref:`Templated Link objects <templated_links>`
+
+``templatedActions``
+  An ``array`` of :ref:`Templated Action objects <templated_actions>`
+
+``templates``
+  An ``array`` of :ref:`Resource Template objects <resource_template>`
+
+``includes``
+  An ``array`` of full :ref:`Resource objects <resource>`
+
+``errors``
+  An :ref:`Error object <errors>`
+
+See the :ref:`Examples <examples>` page for examples of a resource
+
 .. _namespace:
 
 Namespace
@@ -181,10 +224,8 @@ The ``semantics`` array is an array of Semantic objects. It supports the followi
 3. ``title`` - Title of semantic
 4. ``description`` - Description of semantic
 5. ``label`` - Human-readable label or prompt for semantic
-6. ``type`` - Type of the property
-7. ``format`` - HTML format of the property
-8. ``typesOf`` - For pointing to another semantic or schema for the property
-9. ``mapsTo`` - Property to which the semantic point
+6. ``typesOf`` - For pointing to another semantic or schema for the property
+7. ``mapsTo`` - Property to which the semantic point
 
 Example
 #######
@@ -239,46 +280,30 @@ A ``field`` object also provides the following properties:
 ``options``
   An ``array`` of option objects. Option objects have a ``name`` and ``value`` property for each option.
 
-.. _transitions:
-
 Transitions
 -----------
 
-A transition is a way in which a client can interact with this resource or other related resources. It can be seen as a link to a resource or even an action that can be taken, such as updating a resource.
+A transition is an available progression from one state to another state. There are many characteristics of transitions, and several different categories that hypermedia formats use. Transitions have been broken down into links, queries, actions, templated links, templated actions, and embedded resources below.
 
-The ``transitions`` property is an array of Transition objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
+.. _links:
 
-1. ``id`` - Unique identifier for item
-2. ``name`` - Name of transition
-3. ``title`` - Title of transition
-4. ``description`` - Description of transition
-5. ``label`` - Human-readable label or prompt for transition
-6. ``rels`` - Link relation of the transition
-7. ``responseTypes`` - Types with which the server may respond
-8. ``requestTypes`` - Types in which the server accepts
-9. ``embedAs`` - Ways to inform the client how an item should be transcluded
-10. ``href`` - URL for the transition
-11. ``hreft`` - URL template
-12. ``mapsTo`` - An array of Verbose Paths to map a transition to another property
-13. ``typesOf`` - For pointing to another semantic or schema for the transition
-14. ``method`` - For specifying the protocol method to use with the transition. If this is not set, GET SHOULD be assumed.
+Links
+#####
 
-The ``href`` and ``hreft`` properties MUST NOT be used together in the same transition. The different is that the ``hreft`` property is a URI template that requires different processing.
+The ``links`` property is an array of Link objects. It supports all of the properties of the :ref:`Resource object <resource>`, along with the following properites listed in the :ref:`Definitions <definitions>` list:
 
-An transition can have different types of parameters that can be used at different times.
+1. ``label`` - Human-readable label or prompt for link
+2. ``rels`` - Link relations of the link
+3. ``responseTypes`` - Types with which the server may respond
+4. ``embedAs`` - Ways to inform the client how an item should be transcluded
+5. ``typesOf`` - For pointing to another semantic or schema for the link
 
-``bodyParams``
-  An ``array`` of ``field`` objects that is used for specifying the parameters for the body of a request  
+A link is always considered safe. The HTTP method ``GET`` should be used for these requests.
 
-``uriParams``
-  An ``array`` of ``field`` objects that is used for specifying the parameters for a URI template or for query parameters. When used with a transition containing an ``href``, it should be used as query parameters. When used with a transition with ``hreft``, it should be used as URI template parameters.
+Example
+^^^^^^^
 
-  When used with a templated transition that uses ``hreft``, all URL path parameters MUST be required, even if not explicitly stated.
-
-Link Example
-############
-
-The transition below provides a link to a customer resource.
+The link below provides a link to a customer resource.
 
 * It shows ``name`` being used, which has a name of ``customer`` 
 * It defines the link relations for this link using the ``rels`` property
@@ -289,7 +314,7 @@ The transition below provides a link to a customer resource.
 
   {
     "verbose": {
-      "transitions": [
+      "links": [
         {
           "name": "customer",
           "rels": [ "item", "http://example.com/rels/customer"],
@@ -303,8 +328,78 @@ The transition below provides a link to a customer resource.
     }
   }
 
-Action Example
-##############
+.. _queries:
+
+Queries
+#######
+
+Queries are safe GET requests that provide a way for specifying query parameters.
+
+The queries property is an array of Query objects. It supports all of the properties of the :ref:`Resource object <resource>`, along with the following properites listed in the :ref:`Definitions <definitions>` list:
+
+1. ``label`` - Human-readable label or prompt for link
+2. ``rels`` - Link relations of the link
+3. ``responseTypes`` - Types with which the server may respond
+4. ``embedAs`` - Ways to inform the client how an item should be transcluded
+5. ``typesOf`` - For pointing to another semantic or schema for the link
+6. ``queryParams`` - An ``array`` of ``field`` objects to be used for query parameters
+
+Example
+^^^^^^^
+
+This example shows how ``queryParams`` are used.
+
+::
+
+  {
+    "verbose": {
+      "queries": [
+        {
+          "name": "customer",
+          "rels": [ "search"],
+          "responseTypes": [
+            "application/json",
+            "application/hal"
+          ],
+          "href": "/customers",
+          "queryParams": [
+            {
+              "name": "email",
+              "label": "Email"
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+.. _actions:
+
+Actions
+#######
+
+An action is a way to provide an unsafe action.
+
+The ``actions`` property is an array of Action objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
+
+1. ``id`` - Unique identifier for item
+2. ``name`` - Name of action
+3. ``title`` - Title of action
+4. ``description`` - Description of action
+5. ``label`` - Human-readable label or prompt for action
+6. ``rels`` - Link relation of the action
+7. ``responseTypes`` - Types with which the server may respond
+8. ``requestTypes`` - Types in which the server accepts
+9. ``embedAs`` - Ways to inform the client how an item should be transcluded
+10. ``href`` - URL for the action
+11. ``typesOf`` - For pointing to another semantic or schema for the action
+12. ``method`` - HTTP method for the action
+13. ``bodyParams`` - An ``array`` of ``field`` objects that is used for specifying the parameters for the body of a request 
+
+The HTTP method for the action MUST be ``POST``, ``PUT``, or ``DELETE``.
+
+Example
+^^^^^^^
 
 This action can be used to create a customer.
 
@@ -315,7 +410,7 @@ This action can be used to create a customer.
 
   {
     "verbose": {
-      "transitions": [
+      "actions": [
         {
           "title": "Add Customer",
           "rels": [ "append"],
@@ -324,12 +419,10 @@ This action can be used to create a customer.
           "bodyParams": [
             {
               "name": "first_name",
-              "type": "string",
               "label": "First Name"
             },
             {
               "name": "last_name",
-              "type": "string",
               "label": "Last Name"
             }
           ]
@@ -338,40 +431,27 @@ This action can be used to create a customer.
     }
   }
 
-Query Example
-#############
+.. _templated_links:
 
-This query can be used for searching customers. It has two available query parameters.
+Templated Links
+###############
 
-* Company name: ``company_name``
-* Email Address: ``email``
+The ``templatedLinks`` property is an array of Templated Link objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
 
-::
+1. ``id`` - Unique identifier for item
+2. ``name`` - Name of link
+3. ``title`` - Title of link
+4. ``description`` - Description of link
+5. ``label`` - Human-readable label or prompt for link
+6. ``rels`` - Link relations of the link
+7. ``responseTypes`` - Types with which the server may respond
+8. ``embedAs`` - Ways to inform the client how an item should be transcluded
+9. ``hreft`` - URI template for the link
+10. ``typesOf`` - For pointing to another semantic or schema for the link
+11. ``uriParams`` - An ``array`` of ``field`` objects to be used for URI template parameters
 
-  {
-    "verbose": {
-      "transitions": [
-        {
-          "rels": [ "search" ],
-          "href": "/customers",
-          "description": "Customer search",
-          "uriParams": [
-            {
-              "title": "Company Name",
-              "name": "company_name"
-            },
-            {
-              "title": "Email Address",
-              "name": "email"
-            }
-          ]
-        }
-      ]
-    }
-  }
-
-Templated Link Example
-######################
+Example
+^^^^^^^
 
 This shows a resource that has a templated link for a customer resource This is very similar to a regular link, but it provides a ``hreft`` property, which is a templated URL, along with URI parameters.
 
@@ -381,7 +461,7 @@ In this case, there is one URI parameters call ``id``, which is a number.
 
   {
     "verbose": {
-      "transitions": [
+      "templatedLinks": [
         {
           "name": "customer",
           "rels": [ "item", "http://example.com/rels/customer"],
@@ -392,8 +472,7 @@ In this case, there is one URI parameters call ``id``, which is a number.
           "hreft": "/customer/{id}",
           "uriParams": [
             {
-              "name": "id",
-              "type": "number"
+              "name": "id"
             }
           ],
         }
@@ -401,42 +480,30 @@ In this case, there is one URI parameters call ``id``, which is a number.
     }
   }
 
-Templated Query Example
-#######################
+.. _templated_actions:
 
-This is very similar to the templated action, where it provides a query that can be used for multiple resoures. The example below provides a URI template for creating a URL for an image search for each user.
+Templated Actions
+#################
 
-In this example, there are both URI parameters and query parameters for building the request.
+The ``templatedActions`` property is an array of Templated Action objects. It supports the following properites listed in the :ref:`Definitions <definitions>` list:
 
-::
+1. ``id`` - Unique identifier for item
+2. ``name`` - Name of action
+3. ``title`` - Title of action
+4. ``description`` - Description of action
+5. ``label`` - Human-readable label or prompt for action
+6. ``rels`` - Link relation of the action
+7. ``responseTypes`` - Types with which the server may respond
+8. ``requestTypes`` - Types in which the server accepts
+9. ``embedAs`` - Ways to inform the client how an item should be transcluded
+10. ``hreft`` - URI template for the action
+11. ``typesOf`` - For pointing to another semantic or schema for the action
+12. ``method`` - HTTP method for the action
+13. ``bodyParams`` - An ``array`` of ``field`` objects that is used for specifying the parameters for the body of a request 
+14. ``uriParams`` - An ``array`` of ``field`` objects that is used for specifying the parameters for the URI template 
 
-  {
-    "verbose": {
-      "transitions": [
-        {
-          "title": "User Image Search",
-          "rels": [ "search" ],
-          "hreft": "/users/{id}/images",
-          "uriParams": [
-            {
-              "name": "id",
-              "type": "number"
-            }
-          ],
-          "queryParams": [
-            {
-              "name": "image_name",
-              "type": "string",
-              "label": "Image Name"
-            }
-          ]
-        }
-      ]
-    }
-  }
-
-Templated Action Example
-########################
+Example
+^^^^^^^
 
 This templated action provides an action for editing any customer. This allows for including actions that can be used for multiple resources without including the action multiple times. 
 
@@ -446,7 +513,7 @@ In this example, there are both URI parameters and body parameters for building 
 
   {
     "verbose": {
-      "transitions": [
+      "templatedActions": [
         {
           "title": "Edit Customer",
           "rels": [ "http://example.com/rels/customer"],
@@ -454,19 +521,16 @@ In this example, there are both URI parameters and body parameters for building 
           "method": "PUT",
           "uriParams": [
             {
-              "name": "id",
-              "type": "number"
+              "name": "id"
             }
           ],
           "bodyParams": [
             {
               "name": "first_name",
-              "type": "string",
               "label": "First Name"
             },
             {
               "name": "last_name",
-              "type": "string",
               "label": "Last Name"
             }
           ]
@@ -474,6 +538,13 @@ In this example, there are both URI parameters and body parameters for building 
       ]
     }
   }
+
+.. _embedded_resources:
+
+Embedded Resources
+##################
+
+Included resources are just to be considered as included resources and MAY be full representations. The reason for this and the ``partials`` property is that it allows for explicitly telling the client that the resource needs to be requested if the full resource is desired.
 
 .. _resource_template:
 
@@ -533,21 +604,6 @@ This is an example of a resource that provides templates for working with embedd
     }
   }
 
-.. _embedded_resources:
-
-Embedded Resources
-------------------
-
-Partials
-########
-
-Partial resources are considered to be a partial representation of the embedded resource. If the entire resource for the partial is desired, the semantics of the API can specificy how this is done.
-
-Includes
-########
-
-Included resources are just to be considered as included resources and MAY be full representations. The reason for this and the ``partials`` property is that it allows for explicitly telling the client that the resource needs to be requested if the full resource is desired.
-
 .. _meta:
 
 Meta
@@ -590,47 +646,6 @@ The ``errors`` property is a resource object that can be used specifically for e
       }
     }
   }
-
-.. _resource:
-
-Resource
---------
-
-A Verbose Resource is an ``object`` for defining everything dealing with a particular resource. It uses these properties from the definition list.
-
-1. ``id`` - Unique identifier for resource
-2. ``name`` - Name of resource
-
-It also supports.
-
-``meta``
-  A :ref:`Meta object <meta>`
-
-``href``
-  Link to the resource
-
-``semantics``
-  An ``array`` of :ref:`Semantic objects <semantics>`
-
-``properties``
-  A :ref:`Properties object <properties>`
-
-``transitions``
-  An ``array`` of :ref:`Transition objects <transitions>`
-
-``templates``
-  An ``array`` of :ref:`Resource Template objects <resource_template>`
-
-``partials``
-  An ``array`` of partial :ref:`Resource objects <resource>`
-
-``includes``
-  An ``array`` of full :ref:`Resource objects <resource>`
-
-``errors``
-  An :ref:`Error object <errors>`
-
-See the :ref:`Examples <examples>` page for examples of a resource
 
 .. _verbose_path:
 
